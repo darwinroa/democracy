@@ -65,6 +65,8 @@ function dc_query_members_loop($args)
     while ($query->have_posts()) : $query->the_post();
       $html .= do_shortcode('[INSERT_ELEMENTOR id="1112"]');
     endwhile;
+    wp_reset_postdata(); // Resetea los datos del post
+    $html .= ob_get_clean();
   else : $html .= "<p class='loop__hidden'>No se encontraron resultados</p>";
   endif;
   return $html;

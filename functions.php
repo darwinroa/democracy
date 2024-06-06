@@ -38,4 +38,5 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20);
 
 
 require 'shortcodes/members/dc_members.php'; // Members filter shortcode
+require 'shortcodes/library/dc_library.php'; // Libraries filter shortcode
 require 'utilities/dc_html_filter.php';
