@@ -8,11 +8,11 @@ if (!function_exists('dc_libraries_function')) {
   function dc_libraries_function()
   {
     wp_enqueue_style('dc-library-style', get_stylesheet_directory_uri() . '/shortcodes/library/dc_library.css', array(), '1.0');
-    // wp_enqueue_script('dc-library-script', get_stylesheet_directory_uri() . '/shortcodes/library/dc_library.js', array('jquery'), null, true);
-    // wp_localize_script('dc-library-script', 'wp_ajax', array(
-    //   'ajax_url'          => admin_url('admin-ajax.php'),
-    //   'nonce'             => wp_create_nonce('load_more_nonce'),
-    // ));
+    wp_enqueue_script('dc-library-script', get_stylesheet_directory_uri() . '/shortcodes/library/dc_library.js', array('jquery'), null, true);
+    wp_localize_script('dc-library-script', 'wp_ajax', array(
+      'ajax_url'          => admin_url('admin-ajax.php'),
+      'nonce'             => wp_create_nonce('load_more_nonce'),
+    ));
     ob_start();
     $html = '';
     $html .= "<div id='dc__library-section'>";
@@ -42,7 +42,7 @@ if (!function_exists('dc_libraries_function')) {
         'name' => 'Topic'
       ),
     );
-    $form_ID = 'dc__filter-libraries';
+    $form_ID = 'filter-libraries';
     $html .= "<div class='dc__content-loop'>";
     $html .= dc_html_filter_form($taxonomies, $form_ID);
     $html .= "<div class='dc__content-loop-grid'>";

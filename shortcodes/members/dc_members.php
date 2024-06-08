@@ -31,7 +31,7 @@ if (!function_exists('dc_members_function')) {
         'name' => 'Field of work'
       )
     );
-    $form_ID = 'dc__filter-members';
+    $form_ID = 'filter-members';
     $html .= dc_html_filter_form($taxonomies, $form_ID);
     $html .= "<div class='dc__content-loop'>";
     $html .= "<h2 class='dc__content-loop-title'>Organizaciones</h2>";

@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-  $('#member-filter-button').on('click', function(){
+  $('#dc__button-filter-members').on('click', function(){
     const memberType = $('#type_member').val();
     const region = $('#region').val();
     const fieldWork = $('#field_of_work').val();

@@ -10,11 +10,11 @@ function dc_html_filter_form($taxonomies, $form_ID)
 {
   $html = "
   <div class='dc__content-filter'>
-    <form id='{$form_ID}'>";
+    <form id='dc__form-$form_ID'>";
   foreach ($taxonomies as $taxonomy) :
     if ($terms = dc_filter_options($taxonomy['slug'])) $html .= dc_html_filter_select($taxonomy['slug'], $taxonomy['name'], $terms);
   endforeach;
-  $html .= "<button type='button' id='member-filter-button' class='filter-buton'>Filter</button>";
+  $html .= "<button type='button' id='dc__button-$form_ID' class='filter-buton'>Filter</button>";
   $html .= "</form></div>";
   return $html;
 }
