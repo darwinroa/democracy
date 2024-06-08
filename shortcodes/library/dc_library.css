@@ -1,0 +1,5 @@
+#dc__library-section .dc__content-loop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}

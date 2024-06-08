@@ -1,12 +1,15 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 if (!function_exists('dc_libraries_function')) {
   add_shortcode('dc_libraries', 'dc_libraries_function');
 
   function dc_libraries_function()
   {
-    // wp_enqueue_style('dc-members-style', get_stylesheet_directory_uri() . '/shortcodes/members/dc_members.css', array(), '1.0');
-    // wp_enqueue_script('dc-members-script', get_stylesheet_directory_uri() . '/shortcodes/members/dc_members.js', array('jquery'), null, true);
-    // wp_localize_script('dc-members-script', 'wp_ajax', array(
+    wp_enqueue_style('dc-library-style', get_stylesheet_directory_uri() . '/shortcodes/library/dc_library.css', array(), '1.0');
+    // wp_enqueue_script('dc-library-script', get_stylesheet_directory_uri() . '/shortcodes/library/dc_library.js', array('jquery'), null, true);
+    // wp_localize_script('dc-library-script', 'wp_ajax', array(
     //   'ajax_url'          => admin_url('admin-ajax.php'),
     //   'nonce'             => wp_create_nonce('load_more_nonce'),
     // ));
@@ -74,14 +77,15 @@ function dc_query_libraries_loop($args)
       $info = get_field('informacion_extra');
       $description = get_the_content();
       $post_id = get_the_ID();
-      $typoFormat = get_the_terms($post_id, 'formats');
+      $typeFormat = get_the_terms($post_id, 'formats'); // Importante para mostrar el ícono en función del tipo de formato
       $formatURL = '';
       $formatName = '';
-      if ($typoFormat && !is_wp_error($typoFormat)) {
-        $formatID = $typoFormat[0]->term_id;
-        $formatName = $typoFormat[0]->name;
+      if ($typeFormat && !is_wp_error($typeFormat)) {
+        $formatID = $typeFormat[0]->term_id;
+        $formatName = $typeFormat[0]->name;
         $formatURL = get_field('icon', 'formats_' . $formatID);
       }
+      $htmlLink = dc_html_card_btn($typeFormat);
       $html .= "
       <div class='dc__loop-card'>
         <div class='dc__card-content'>
@@ -89,7 +93,7 @@ function dc_query_libraries_loop($args)
           <h3 class='dc__card-title'>$title</h3>
           <p class='dc__card-info'>$info</p>
           <div class='dc__card-content'>$description</div>
-          <a href='#' class='dc__card-button'>Card Link</a>
+          $htmlLink
         </div>
       </div>";
     endwhile;
@@ -98,4 +102,18 @@ function dc_query_libraries_loop($args)
   else : $html .= "<p class='loop__hidden'>No se encontraron resultados</p>";
   endif;
   return $html;
+}
+
+/**
+ * Retorna el HTML del link del post, ya sea para ver un video, descargar un pdf o enviar a una página externa
+ */
+function dc_html_card_btn($typeFormat)
+{
+  $formatSlug = $typeFormat[0]->slug;
+  if ($formatSlug === 'video') return "<button id='dc_video_pop_up' class='dc__card-link'>Watch video</button>";
+  $materialLectura = get_field('material_de_lectura');
+  $isExternalLink = $materialLectura['pdf__link'];
+  $url = $isExternalLink ? $materialLectura['link_externo'] : $materialLectura['pdf'];
+  $name = $isExternalLink ? 'Read' : 'Download';
+  return "<a href='$url' target='_blank' rel='noopener noreferrer' class='dc__card-link'>$name</a>";
 }
