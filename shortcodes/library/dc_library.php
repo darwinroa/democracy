@@ -117,3 +117,70 @@ function dc_html_card_btn($typeFormat)
   $name = $isExternalLink ? 'Read' : 'Download';
   return "<a href='$url' target='_blank' rel='noopener noreferrer' class='dc__card-link'>$name</a>";
 }
+
+/**
+ * Función para la respuesta del Ajax
+ */
+if (!function_exists('dc_library_ajax_filter')) {
+  add_action('wp_ajax_nopriv_dc_library_ajax_filter', 'dc_library_ajax_filter');
+  add_action('wp_ajax_dc_library_ajax_filter', 'dc_library_ajax_filter');
+
+  function dc_library_ajax_filter()
+  {
+    check_ajax_referer('load_more_nonce', 'nonce');
+    $formats = isset($_POST['formats']) ? sanitize_text_field($_POST['formats']) : '';
+    $authors = isset($_POST['authors']) ? sanitize_text_field($_POST['authors']) : '';
+    $years = isset($_POST['years']) ? sanitize_text_field($_POST['years']) : '';
+    $languages = isset($_POST['languages']) ? sanitize_text_field($_POST['languages']) : '';
+    $topics = isset($_POST['topics']) ? sanitize_text_field($_POST['topics']) : '';
+
+    /**
+     * Construyendo los argumentos necesarios para el Query
+     */
+    $tax_query = array('relation' => 'AND');
+    if ($formats) {
+      $tax_query[] =  array(
+        'taxonomy' => 'formats',
+        'field' => 'term_id',
+        'terms' => intval($formats)
+      );
+    }
+    if ($authors) {
+      $tax_query[] =  array(
+        'taxonomy' => 'authors',
+        'field' => 'term_id',
+        'terms' => intval($authors)
+      );
+    }
+    if ($years) {
+      $tax_query[] =  array(
+        'taxonomy' => 'years',
+        'field' => 'term_id',
+        'terms' => intval($years)
+      );
+    }
+    if ($languages) {
+      $tax_query[] =  array(
+        'taxonomy' => 'languages',
+        'field' => 'term_id',
+        'terms' => intval($languages)
+      );
+    }
+    if ($topics) {
+      $tax_query[] =  array(
+        'taxonomy' => 'topics',
+        'field' => 'term_id',
+        'terms' => intval($topics)
+      );
+    }
+    $args = array(
+      'post_type' => 'library',
+      'posts_per_page' => 9,
+      'tax_query' => $tax_query,
+    );
+    $html = dc_query_libraries_loop($args);
+
+    wp_send_json_success($html);
+    wp_die();
+  }
+}
