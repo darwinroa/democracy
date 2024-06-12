@@ -82,7 +82,7 @@ if (!function_exists('dc_member_ajax_filter')) {
   function dc_member_ajax_filter()
   {
     check_ajax_referer('load_more_nonce', 'nonce');
-    $page = $_POST['page'];;
+    $page = $_POST['page'];
     $member_type = isset($_POST['memberType']) ? sanitize_text_field($_POST['memberType']) : '';
     $region = isset($_POST['region']) ? sanitize_text_field($_POST['region']) : '';
     $field_of_work = isset($_POST['fieldWork']) ? sanitize_text_field($_POST['fieldWork']) : '';

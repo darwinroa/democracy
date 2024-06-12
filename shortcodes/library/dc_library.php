@@ -130,6 +130,7 @@ if (!function_exists('dc_library_ajax_filter')) {
   function dc_library_ajax_filter()
   {
     check_ajax_referer('load_more_nonce', 'nonce');
+    $page = $_POST['page'];
     $formats = isset($_POST['formats']) ? sanitize_text_field($_POST['formats']) : '';
     $authors = isset($_POST['authors']) ? sanitize_text_field($_POST['authors']) : '';
     $years = isset($_POST['years']) ? sanitize_text_field($_POST['years']) : '';
@@ -179,6 +180,7 @@ if (!function_exists('dc_library_ajax_filter')) {
       'post_type' => 'library',
       'posts_per_page' => 9,
       'tax_query' => $tax_query,
+      'paged' => $page
     );
     $html = dc_query_libraries_loop($args);
 

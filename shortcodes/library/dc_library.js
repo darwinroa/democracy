@@ -1,5 +1,10 @@
 jQuery(document).ready(function($) {
   $('#dc__button-filter-libraries').on('click', function(){
+    dcLibraryAjax(1);
+  })
+
+  // Función Ajax para la petición del filtro y el cargar más
+  function dcLibraryAjax (page) {
     const formats = $('#formats').val();
     const authors = $('#authors').val();
     const years = $('#years').val();
@@ -11,6 +16,7 @@ jQuery(document).ready(function($) {
       data: {
         action: 'dc_library_ajax_filter',
         nonce: wp_ajax.nonce,
+        page,
         formats,
         authors,
         years,
@@ -28,5 +34,5 @@ jQuery(document).ready(function($) {
         }
       }
     })
-  })
+  }
 });
