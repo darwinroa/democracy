@@ -3,8 +3,9 @@
 /**
  * Retorna el HTML del formulario
  * Requiere 2 variables
- * $taxonomies es un array de arrays donde vada array contiene la key 'slug' y 'name'
+ * $taxonomies es un array de arrays donde vada array contiene la key 'slug', 'name' y 'order'
  * Siendo estas keies el slug de la taxonomía y el nombre que quiero que se muestre de la taxonomía
+ * La key 'order' puede ser opcional, y solo debe tener como valor DESC.
  */
 function dc_html_filter_form($taxonomies, $form_ID)
 {
@@ -12,7 +13,8 @@ function dc_html_filter_form($taxonomies, $form_ID)
   <div class='dc__content-filter'>
     <form id='dc__form-$form_ID'>";
   foreach ($taxonomies as $taxonomy) :
-    if ($terms = dc_filter_options($taxonomy['slug'])) $html .= dc_html_filter_select($taxonomy['slug'], $taxonomy['name'], $terms);
+    $order = array_key_exists('order', $taxonomy) ? $taxonomy['order'] : 'ASC';
+    if ($terms = dc_filter_options($taxonomy['slug'], $order)) $html .= dc_html_filter_select($taxonomy['slug'], $taxonomy['name'], $terms);
   endforeach;
   $html .= "<button type='button' id='dc__button-$form_ID' class='filter-buton'>Filter</button>";
   $html .= "</form></div>";
@@ -23,12 +25,13 @@ function dc_html_filter_form($taxonomies, $form_ID)
  * Retorna los valores de todas las taxonomías
  * Se le debe pasar como variable el slug de la taxonomia
  */
-function dc_filter_options($taxonomy)
+function dc_filter_options($taxonomy, $order)
 {
   return get_terms(
     array(
       'taxonomy'    => $taxonomy,
       'orderby'     => 'name',
+      'order'       => $order,
       'hide_empty'  => false
     )
   );

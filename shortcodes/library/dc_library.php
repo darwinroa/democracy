@@ -31,7 +31,8 @@ if (!function_exists('dc_libraries_function')) {
       ),
       array(
         'slug' => 'years',
-        'name' => 'Year'
+        'name' => 'Year',
+        'order' => 'DESC'
       ),
       array(
         'slug' => 'languages',
@@ -105,7 +106,8 @@ function dc_query_libraries_loop($args)
 }
 
 /**
- * Retorna el HTML del link del post, ya sea para ver un video, descargar un pdf o enviar a una página externa
+ * Retorna el HTML del link del post, ya sea para ver 
+ * un video, descargar un pdf o enviar a una página externa
  */
 function dc_html_card_btn($typeFormat)
 {
