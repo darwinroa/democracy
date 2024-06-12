@@ -1,5 +1,10 @@
 jQuery(document).ready(function($) {
-  $('#dc__button-filter-members').on('click', function(){
+  $('#dc__button-filter-members').on('click', function() {
+    dcMembersAjax(1);
+  })
+
+  // Función Ajax para la petición del filtro y el cargar más
+  function dcMembersAjax (page) {
     const memberType = $('#type_member').val();
     const region = $('#region').val();
     const fieldWork = $('#field_of_work').val();
@@ -9,6 +14,7 @@ jQuery(document).ready(function($) {
       data: {
         action: 'dc_member_ajax_filter',
         nonce: wp_ajax.nonce,
+        page,
         memberType,
         region,
         fieldWork
@@ -24,5 +30,5 @@ jQuery(document).ready(function($) {
         }
       }
     })
-  })
+  }
 })
