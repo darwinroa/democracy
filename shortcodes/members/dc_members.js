@@ -5,6 +5,7 @@ jQuery(document).ready(function($) {
   // De modo que el filtro se realiza tomando los datos seleccionados
   $('#dc__button-filter-members').on('click', function() {
     page = 1; // Inicializando el paginado cada vez que se desea filtrar
+    isLoadMore = false;
     dcMembersAjax(page);
   })
  

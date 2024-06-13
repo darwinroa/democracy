@@ -42,14 +42,18 @@ if (!function_exists('dc_members_function')) {
      * Luego estos argumentos son enviados a la función dc_query_members_loop() 
      * Esta función es la encargada de retornar el loop con los argumentos necesarios
      */
+    $post_per_page = 20;
     $args = array(
       'post_type' => 'members',
-      'posts_per_page' => 20
+      'posts_per_page' => $post_per_page
     );
-    $html .= dc_query_members_loop($args);
+    $query_loop = dc_query_members_loop($args);
+    $html .= $query_loop[0];
+    $total_post = $query_loop[1];
     $html .= "</div>";
     $button_ID = 'loadmore-members';
-    $html .= dc_html_loadmore_button($button_ID);
+    $show_hide_button = dc_show_loadmore_button($total_post, $post_per_page, 1); // Retorna true / false para mostrar o no el botón de load more
+    $html .= dc_html_loadmore_button($button_ID, $show_hide_button);
     $html .= "</div></div>";
     return $html;
   }
@@ -62,6 +66,7 @@ if (!function_exists('dc_members_function')) {
 function dc_query_members_loop($args)
 {
   $query = new WP_Query($args);
+  $total_post = $query->found_posts;
   $html = "";
   if ($query->have_posts()) :
     ob_start();
@@ -70,9 +75,9 @@ function dc_query_members_loop($args)
     endwhile;
     wp_reset_postdata(); // Resetea los datos del post
     $html .= ob_get_clean();
-  else : $html .= "<p class='loop__hidden'>No se encontraron resultados</p>";
+  else : $html .= "<div class='dc__without-results'>No se encontraron resultados</div>";
   endif;
-  return $html;
+  return array($html, $total_post);
 }
 
 /**
@@ -115,13 +120,15 @@ if (!function_exists('dc_member_ajax_filter')) {
         'terms' => intval($field_of_work)
       );
     }
+    $post_per_page = 20;
     $args = array(
       'post_type' => 'members',
-      'posts_per_page' => 20,
+      'posts_per_page' => $post_per_page,
       'tax_query' => $tax_query,
       'paged' => $page
     );
-    $html = dc_query_members_loop($args);
+    $query_loop = dc_query_members_loop($args);
+    $html = $query_loop[0];
 
     wp_send_json_success($html);
     wp_die();
