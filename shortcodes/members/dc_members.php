@@ -47,7 +47,10 @@ if (!function_exists('dc_members_function')) {
       'posts_per_page' => 20
     );
     $html .= dc_query_members_loop($args);
-    $html .= "</div></div></div>";
+    $html .= "</div>";
+    $button_ID = 'loadmore-members';
+    $html .= dc_html_loadmore_button($button_ID);
+    $html .= "</div></div>";
     return $html;
   }
 }
