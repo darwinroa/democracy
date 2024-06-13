@@ -42,7 +42,7 @@ if (!function_exists('dc_members_function')) {
      * Luego estos argumentos son enviados a la función dc_query_members_loop() 
      * Esta función es la encargada de retornar el loop con los argumentos necesarios
      */
-    $post_per_page = 20;
+    $post_per_page = 4;
     $args = array(
       'post_type' => 'members',
       'posts_per_page' => $post_per_page
@@ -53,7 +53,7 @@ if (!function_exists('dc_members_function')) {
     $html .= "</div>";
     $button_ID = 'loadmore-members';
     $show_hide_button = dc_show_loadmore_button($total_post, $post_per_page, 1); // Retorna true / false para mostrar o no el botón de load more
-    $html .= dc_html_loadmore_button($button_ID, $show_hide_button);
+    $html .= $show_hide_button ? dc_html_loadmore_button($button_ID) : '';
     $html .= "</div></div>";
     return $html;
   }
@@ -120,7 +120,7 @@ if (!function_exists('dc_member_ajax_filter')) {
         'terms' => intval($field_of_work)
       );
     }
-    $post_per_page = 20;
+    $post_per_page = 4;
     $args = array(
       'post_type' => 'members',
       'posts_per_page' => $post_per_page,
