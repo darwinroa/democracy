@@ -143,3 +143,21 @@ function get_member_country_function()
 {
   return get_field('country');
 }
+
+/**
+ * Se requeire este shortcode para agregarlo en el template de elementor para que se imprima el Custom field de URL externo
+ */
+add_shortcode('get_member_url', 'get_member_url_function');
+function get_member_url_function()
+{
+  return get_field('link_web');
+}
+
+/**
+ * Se requeire este shortcode para agregarlo en el template de elementor para que se imprima el Custom field del texto del URL externo
+ */
+add_shortcode('get_member_name_url', 'get_member_name_url_function');
+function get_member_name_url_function()
+{
+  return get_field('text_link');
+}
