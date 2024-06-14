@@ -39,7 +39,8 @@ jQuery(document).ready(function($) {
         topics
       },
       beforeSend: function(){
-        const loaderIcon = "<div class='dc-loader-ajax' bis_skin_checked='1'><img decoding='async' alt='Loading' data-src='http://redimpacto.local/wp-content/themes/charitian-child/assets/img/ri-preloader.svg' class=' ls-is-cached lazyloaded' src='http://redimpacto.local/wp-content/themes/charitian-child/assets/img/ri-preloader.svg'></div>";
+        const loaderUrl = wp_ajax.theme_directory_uri + '/inc/img/ri-preloader.svg';
+        const loaderIcon = `<div class='dc-loader-ajax' bis_skin_checked='1'><img decoding='async' alt='Loading' data-src='${loaderUrl}' class='ls-is-cached lazyloaded' src='${loaderUrl}'></div>`;
         isLoadMore ?
           $('#dc__library-section .dc__content-loop-grid').after(loaderIcon) :
           $('#dc__library-section .dc__content-loop-grid').html(loaderIcon);

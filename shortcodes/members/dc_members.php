@@ -7,8 +7,9 @@ if (!function_exists('dc_members_function')) {
     wp_enqueue_style('dc-members-style', get_stylesheet_directory_uri() . '/shortcodes/members/dc_members.css', array(), '1.0');
     wp_enqueue_script('dc-members-script', get_stylesheet_directory_uri() . '/shortcodes/members/dc_members.js', array('jquery'), null, true);
     wp_localize_script('dc-members-script', 'wp_ajax', array(
-      'ajax_url'          => admin_url('admin-ajax.php'),
-      'nonce'             => wp_create_nonce('load_more_nonce'),
+      'ajax_url'            => admin_url('admin-ajax.php'),
+      'nonce'               => wp_create_nonce('load_more_nonce'),
+      'theme_directory_uri' => get_stylesheet_directory_uri(),
     ));
     ob_start();
     $html = '';
