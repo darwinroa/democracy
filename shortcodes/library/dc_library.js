@@ -1,4 +1,7 @@
 jQuery(document).ready(function($) {
+  /**
+   * Scipits para el filtro y el cargar más con Ajax usado para el Query de Library
+   */
   var page = 1; // Inicializando el paginado
   var isLoadMore = false;
   // Esto se ejecuta cuando se presiona sobre el botón de filtrar
@@ -59,4 +62,44 @@ jQuery(document).ready(function($) {
       }
     })
   }
+
+});
+
+
+/**
+ * Script para cargar los videos PopUp
+ */
+document.addEventListener('DOMContentLoaded', function() {
+  var openPopupBtn = document.getElementById('openPopup');
+  var closePopupBtn = document.getElementById('closePopup');
+  var popup = document.getElementById('popup');
+  var overlay = document.getElementById('overlay');
+
+  // Función para abrir el pop-up y desactivar el scroll
+  function openPopup() {
+      popup.style.display = 'block';
+      overlay.style.display = 'block';
+      document.body.classList.add('no-scroll');
+  }
+
+  // Función para cerrar el pop-up y activar el scroll
+  function closePopup() {
+      popup.style.display = 'none';
+      overlay.style.display = 'none';
+      document.body.classList.remove('no-scroll');
+  }
+
+  // Agregar eventos a los botones
+  openPopupBtn.addEventListener('click', openPopup);
+  closePopupBtn.addEventListener('click', closePopup);
+
+  // Cerrar el pop-up al hacer clic fuera de él
+  overlay.addEventListener('click', closePopup);
+
+  // Cerrar el pop-up al hacer clic fuera del contenido del pop-up
+  document.addEventListener('click', function(event) {
+      if (!popup.contains(event.target) && !openPopupBtn.contains(event.target)) {
+          closePopup();
+      }
+  });
 });

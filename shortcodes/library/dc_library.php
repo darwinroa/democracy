@@ -1,7 +1,4 @@
 <?php
-
-use function PHPSTORM_META\type;
-
 if (!function_exists('dc_libraries_function')) {
   add_shortcode('dc_libraries', 'dc_libraries_function');
 
@@ -67,6 +64,7 @@ if (!function_exists('dc_libraries_function')) {
     $show_hide_button = dc_show_loadmore_button($total_post, $post_per_page, 1); // Retorna true / false para mostrar o no el botón de load more
     $html .= $show_hide_button ? dc_html_loadmore_button($button_ID) : '';
     $html .= "</div></div>";
+    $html .= dc_html_popup();
     return $html;
   }
 }
@@ -198,4 +196,20 @@ if (!function_exists('dc_library_ajax_filter')) {
     wp_send_json_success($html);
     wp_die();
   }
+}
+
+function dc_html_popup()
+{
+  ob_start();
+  $html = "<button id='openPopup'>Abrir Pop-up</button>";
+  $html .= "<div id='overlay'></div>";
+  $html .= "<div id='popup'>";
+  $urlVideo = get_field('video_pop_up', 840)['video_interno'];
+  $html .= "<video width='640' height='360' controls>
+              <source src='$urlVideo' type='video/webm'>
+              Tu navegador no soporta el elemento de video.
+            </video>";
+  $html .= "<button id='closePopup'>Cerrar</button></div>";
+  $html .= ob_get_clean();
+  return $html;
 }
