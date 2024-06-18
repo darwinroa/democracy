@@ -93,7 +93,7 @@ function dc_query_libraries_loop($args)
         $formatName = $typeFormat[0]->name;
         $formatURL = get_field('icon', 'formats_' . $formatID);
       }
-      $htmlLink = dc_html_card_btn($typeFormat);
+      $htmlLink = dc_html_card_btn($typeFormat, $post_id);
       $html .= "
       <div class='dc__loop-card'>
         <div class='dc__card-content'>
@@ -116,10 +116,10 @@ function dc_query_libraries_loop($args)
  * Retorna el HTML del link del post, ya sea para ver 
  * un video, descargar un pdf o enviar a una página externa
  */
-function dc_html_card_btn($typeFormat)
+function dc_html_card_btn($typeFormat, $post_id)
 {
   $formatSlug = $typeFormat[0]->slug;
-  if ($formatSlug === 'video') return "<button id='dc_video_pop_up' class='dc__card-link'>Watch video</button>";
+  if ($formatSlug === 'video') return "<button data-id='$post_id' class='dc__card-link dc_video_pop_up'>Watch video</button>";
   $materialLectura = get_field('material_de_lectura');
   $isExternalLink = $materialLectura['pdf__link'];
   $url = $isExternalLink ? $materialLectura['link_externo'] : $materialLectura['pdf'];
@@ -198,18 +198,39 @@ if (!function_exists('dc_library_ajax_filter')) {
   }
 }
 
-function dc_html_popup()
+
+/**
+ * Funcion para mostrar el video en un pop up
+ */
+function dc_html_popup() //Esta función contiene el HTML para el pop up
 {
-  ob_start();
-  $html = "<button id='openPopup'>Abrir Pop-up</button>";
+  $html = "";
   $html .= "<div id='overlay'></div>";
-  $html .= "<div id='popup'>";
-  $urlVideo = get_field('video_pop_up', 840)['video_interno'];
-  $html .= "<video width='640' height='360' controls>
-              <source src='$urlVideo' type='video/webm'>
-              Tu navegador no soporta el elemento de video.
-            </video>";
-  $html .= "<button id='closePopup'>Cerrar</button></div>";
-  $html .= ob_get_clean();
+  $html .= "<div id='videoPopup'><button id='closePopup'>X</button><div id='videoPopupContent'></div></div>";
   return $html;
+}
+
+if (!function_exists('dc_ajax_popup')) {
+  add_action('wp_ajax_nopriv_dc_ajax_popup', 'dc_ajax_popup');
+  add_action('wp_ajax_dc_ajax_popup', 'dc_ajax_popup');
+
+  function dc_ajax_popup() // Aquí se crea el HTML del video para el post que se le da clic.
+  {
+    $videoId = $_POST['videoId'];
+    ob_start();
+    $html = "";
+    $videoType = get_field('material_de_video', $videoId)['tipo_de_video']; //Retorna true si el video viene de una url externa y false si el video esta cargado en wordpress
+    if ($videoType) {
+      $html .= get_field('material_de_video', $videoId)['video_url'];
+    } else {
+      $urlVideo = get_field('material_de_video', $videoId)['archivo_video'];
+      $html .= "<video width='640' height='360' controls>
+                  <source src='$urlVideo' type='video/webm'>
+                  Tu navegador no soporta el elemento de video.
+                </video>";
+      $html .= ob_get_clean();
+    }
+    wp_send_json_success($html);
+    wp_die();
+  }
 }

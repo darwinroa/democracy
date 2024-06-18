@@ -63,43 +63,58 @@ jQuery(document).ready(function($) {
     })
   }
 
-});
+  /**
+   * Script para cargar los videos PopUp
+   */
+  var $openPopupBtn = $('.dc_video_pop_up');
+  var $closePopupBtn = $('#closePopup');
+  var $popup = $('#videoPopup');
+  var $overlay = $('#overlay');
 
+  // Agregar eventos a los botones
+  $('#dc__library-section').on('click', '.dc_video_pop_up', openPopup);
+  $closePopupBtn.on('click', closePopup);
 
-/**
- * Script para cargar los videos PopUp
- */
-document.addEventListener('DOMContentLoaded', function() {
-  var openPopupBtn = document.getElementById('openPopup');
-  var closePopupBtn = document.getElementById('closePopup');
-  var popup = document.getElementById('popup');
-  var overlay = document.getElementById('overlay');
+  // Cerrar el pop-up al hacer clic fuera de él
+  $overlay.on('click', closePopup);
+
+  // Cerrar el pop-up al hacer clic fuera del contenido del pop-up
+  $(document).on('click', function(event) {
+    if (!$popup.is(event.target) && $popup.has(event.target).length === 0 && !$openPopupBtn.is(event.target)) {
+      closePopup();
+    }
+  });
 
   // Función para abrir el pop-up y desactivar el scroll
   function openPopup() {
-      popup.style.display = 'block';
-      overlay.style.display = 'block';
-      document.body.classList.add('no-scroll');
+    const videoId = $(this).data('id');
+    $.ajax({
+      url: wp_ajax.ajax_url,
+      type: 'post',
+      data: {
+        action: 'dc_ajax_popup',
+        nonce: wp_ajax.nonce,
+        videoId
+      },
+      success: function(response) {
+        $popup.show();
+        $overlay.show();        
+        $('body').addClass('no-scroll');
+        if (response.success) {
+          $('#videoPopupContent').html(response.data)
+        } else {
+            $('#videoPopupContent').html('<p>Hubo un error en la solicitud.</p>');
+        }
+      }
+    })
   }
 
   // Función para cerrar el pop-up y activar el scroll
   function closePopup() {
-      popup.style.display = 'none';
-      overlay.style.display = 'none';
-      document.body.classList.remove('no-scroll');
+    $popup.hide();
+    $overlay.hide();
+    $('#videoPopupContent').empty();
+    $('body').removeClass('no-scroll');
   }
 
-  // Agregar eventos a los botones
-  openPopupBtn.addEventListener('click', openPopup);
-  closePopupBtn.addEventListener('click', closePopup);
-
-  // Cerrar el pop-up al hacer clic fuera de él
-  overlay.addEventListener('click', closePopup);
-
-  // Cerrar el pop-up al hacer clic fuera del contenido del pop-up
-  document.addEventListener('click', function(event) {
-      if (!popup.contains(event.target) && !openPopupBtn.contains(event.target)) {
-          closePopup();
-      }
-  });
 });

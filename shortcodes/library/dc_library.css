@@ -5,13 +5,14 @@
 }
 
 /* Estilos para el pop-up */
-#popup {
+#videoPopup {
   display: none;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 300px;
+  min-height: 300px;
   padding: 20px;
   background-color: #fff;
   border: 1px solid #ccc;
