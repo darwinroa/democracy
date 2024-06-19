@@ -100,7 +100,7 @@ function dc_query_libraries_loop($args)
           <img src='$formatURL' alt='$formatName' class='dc__icon-format' name='$formatName' width='54' height='54'>
           <h3 class='dc__card-title'>$title</h3>
           <p class='dc__card-info'>$info</p>
-          <div class='dc__card-content'>$description</div>
+          <div class='dc__card-description'>$description</div>
           $htmlLink
         </div>
       </div>";
@@ -224,7 +224,7 @@ if (!function_exists('dc_ajax_popup')) {
       $html .= get_field('material_de_video', $videoId)['video_url'];
     } else {
       $urlVideo = get_field('material_de_video', $videoId)['archivo_video'];
-      $html .= "<video width='640' height='360' controls>
+      $html .= "<video width='640' height='360' controls class='dc_video-wp'>
                   <source src='$urlVideo' type='video/webm'>
                   Tu navegador no soporta el elemento de video.
                 </video>";
