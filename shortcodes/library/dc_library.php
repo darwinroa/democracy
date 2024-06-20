@@ -24,10 +24,6 @@ if (!function_exists('dc_libraries_function')) {
         'name' => 'Format'
       ),
       array(
-        'slug' => 'authors',
-        'name' => 'Author'
-      ),
-      array(
         'slug' => 'years',
         'name' => 'Year',
         'order' => 'DESC'
@@ -35,10 +31,6 @@ if (!function_exists('dc_libraries_function')) {
       array(
         'slug' => 'languages',
         'name' => 'Language'
-      ),
-      array(
-        'slug' => 'topic',
-        'name' => 'Topic'
       ),
     );
     $form_ID = 'filter-libraries';
