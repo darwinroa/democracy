@@ -204,9 +204,10 @@ if (!function_exists('dc_library_ajax_filter')) {
  */
 function dc_html_popup() //Esta función contiene el HTML para el pop up
 {
+  $iconPlus = dc_icon_plus();
   $html = "";
   $html .= "<div id='overlay'></div>";
-  $html .= "<div id='videoPopup'><button id='closePopup'>X</button><div id='videoPopupContent'></div></div>";
+  $html .= "<div id='videoPopup'><div id='closePopup'>$iconPlus</div><div id='videoPopupContent'></div></div>";
   return $html;
 }
 
