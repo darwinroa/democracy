@@ -41,19 +41,23 @@ function dc_html_popup_team() //Esta función contiene el HTML para el pop up
   return $html;
 }
 
+/**
+ * La función que se encarga de cargar los datos solicitados por ajax
+ * para luego imprimirlos en el pop up de los miembros del equipo
+ */
 if (!function_exists('dc_ajax_team_popup')) {
   add_action('wp_ajax_nopriv_dc_ajax_team_popup', 'dc_ajax_team_popup');
   add_action('wp_ajax_dc_ajax_team_popup', 'dc_ajax_team_popup');
 
   function dc_ajax_team_popup()
   {
-    $dataId = $_POST['dataId'];
+    $dataId = $_POST['dataId']; //Id del miembro del equipo que se desea ver más información
     $profile = get_the_post_thumbnail($dataId, 'medium');
     $memberType = get_the_terms($dataId, 'type_member_team')[0]->name;
     $name = get_the_title($dataId);
     $position = get_field('cargo', $dataId);
     $description = apply_filters('the_content', get_the_content(null, false, $dataId));
-    $links = dc_team_member_links($dataId);
+    $links = dc_team_member_links($dataId); // imprime el html con los links de las redes sociales
     ob_start();
     $html = "
       <div class='popup__header'>
@@ -74,8 +78,13 @@ if (!function_exists('dc_ajax_team_popup')) {
     wp_die();
   }
 
+  /**
+   * Función que se encarga de imprimir el html de los links de redes sociales en el popup
+   * Recibe como pámetro el id del miembro del equipo que se desea ver más detalles en el popup
+   */
   function dc_team_member_links($dataId)
   {
+    ob_start();
     $html = '';
     $links = get_field('links', $dataId);
     foreach ($links as $link) {
@@ -83,6 +92,7 @@ if (!function_exists('dc_ajax_team_popup')) {
       $name = $link['link_text'];
       $html .= "<a href='$url' target='_blank' rel='noopener noreferrer' name='$name'>$name</a>";
     }
+    $html .= ob_get_clean();
     return $html;
   }
 }
