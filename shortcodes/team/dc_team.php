@@ -49,11 +49,11 @@ if (!function_exists('dc_ajax_team_popup')) {
   {
     $dataId = $_POST['dataId'];
     $profile = get_the_post_thumbnail($dataId, 'medium');
-    $memberType = "";
+    $memberType = get_the_terms($dataId, 'type_member_team')[0]->name;
     $name = get_the_title($dataId);
     $position = get_field('cargo', $dataId);
     $description = apply_filters('the_content', get_the_content(null, false, $dataId));
-    $links = "";
+    $links = dc_team_member_links($dataId);
     ob_start();
     $html = "
       <div class='popup__header'>
@@ -68,9 +68,21 @@ if (!function_exists('dc_ajax_team_popup')) {
       <div class='popup__body'>
           $description
       </div>
-      <div class='popup__footer'></div>";
+      <div class='popup__footer'>$links</div>";
     $html .= ob_get_clean();
     wp_send_json_success($html);
     wp_die();
+  }
+
+  function dc_team_member_links($dataId)
+  {
+    $html = '';
+    $links = get_field('links', $dataId);
+    foreach ($links as $link) {
+      $url = $link['link_url'];
+      $name = $link['link_text'];
+      $html .= "<a href='$url' target='_blank' rel='noopener noreferrer' name='$name'>$name</a>";
+    }
+    return $html;
   }
 }

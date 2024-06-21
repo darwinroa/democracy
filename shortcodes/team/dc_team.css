@@ -5,7 +5,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
+  width: 100%;
+  max-width: 800px;
   min-height: 300px;
   padding: 20px;
   background-color: #fff;
