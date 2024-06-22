@@ -11,7 +11,11 @@ function  filter_function()
   $html = '';
   $content = '';
   $index = 0;
+  $contentTab = get_field('tab_9_contenido');
   $rows = get_field('selection_filter');
+  $html .= "<div class='dc__tab9-content'>
+              <p class='tab9__text'>$contentTab</p>
+            </div>";
   if ($rows) {
     $html .= '<div class="content-toggle">';
     $html .= '<div class="filter-top">';
