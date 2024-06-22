@@ -1,6 +1,5 @@
 <?php
 if (!function_exists('dc_team_function')) {
-  echo is_page('dc_team');
   add_shortcode('dc_team', 'dc_team_function');
   function dc_team_function()
   {
@@ -52,7 +51,7 @@ if (!function_exists('dc_ajax_team_popup')) {
   function dc_ajax_team_popup()
   {
     $dataId = $_POST['dataId']; //Id del miembro del equipo que se desea ver más información
-    $profile = get_the_post_thumbnail($dataId, 'medium');
+    $profile = get_the_post_thumbnail($dataId, 'medium', array('class' => 'member__profile'));
     $memberType = get_the_terms($dataId, 'type_member_team')[0]->name;
     $name = get_the_title($dataId);
     $position = get_field('cargo', $dataId);
@@ -90,7 +89,7 @@ if (!function_exists('dc_ajax_team_popup')) {
     foreach ($links as $link) {
       $url = $link['link_url'];
       $name = $link['link_text'];
-      $html .= "<a href='$url' target='_blank' rel='noopener noreferrer' name='$name'>$name</a>";
+      $html .= "<a href='$url' target='_blank' rel='noopener noreferrer' name='$name' class='footer__links'>$name</a>";
     }
     $html .= ob_get_clean();
     return $html;
