@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Este shortcode se utiliza para imprimir contenido en el 
+ * tab 9 de la página Deliberation on Difficult Issues
+ */
 add_shortcode('filter_select', 'filter_function');
 
 function  filter_function()
