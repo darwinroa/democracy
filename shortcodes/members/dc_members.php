@@ -35,7 +35,7 @@ if (!function_exists('dc_members_function')) {
     $form_ID = 'filter-members';
     $html .= dc_html_filter_form($taxonomies, $form_ID);
     $html .= "<div class='dc__content-loop'>";
-    $html .= "<h2 class='dc__content-loop-title'>Organizaciones</h2>";
+    $html .= "<h2 class='dc__content-loop-title'>Organizations</h2>";
     $html .= "<div class='dc__content-loop-grid'>";
     /**
      * Aquí se optiene el Loop inicial al momento de cargar la web
@@ -72,7 +72,7 @@ function dc_query_members_loop($args)
   if ($query->have_posts()) :
     ob_start();
     while ($query->have_posts()) : $query->the_post();
-      $html .= do_shortcode('[INSERT_ELEMENTOR id="1112"]');
+      $html .= do_shortcode('[INSERT_ELEMENTOR id="1554"]');
     endwhile;
     wp_reset_postdata(); // Resetea los datos del post
     $html .= ob_get_clean();

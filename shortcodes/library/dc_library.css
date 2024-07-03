@@ -4,6 +4,103 @@
   gap: 18px;
 }
 
+#dc__library-section .dc__content-loop{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+#dc__library-section .dc__content-loop .dc__content-filter{
+	width: 25%;
+	align-items: baseline !important;
+    justify-content: flex-start !important;
+}
+
+#dc__library-section .dc__content-loop .dc__content-loop-grid{
+	width: 75%;
+}
+
+#dc__library-section select{
+	min-width: 185px;
+	height: 52px;
+	border-radius: 0px;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 13px;
+	font-weight: 400;
+	color: #9F9F9F;
+	border: 1px solid #9F9F9F;
+}
+
+#dc__library-section .filter-buton{
+	min-width: 185px;
+	background-color: #0F0E0E;
+	border: none;
+	border-radius: 0px;
+	color: white;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 16px;
+	font-weight: 600;
+	transition: .4s;
+}
+
+#dc__library-section .filter-buton:hover{
+	opacity: .7;
+}
+
+#dc__library-section .dc__card-content{
+	padding: 0px 15px 15px 15px;
+    border: 1px solid #F0F0F0;
+}
+
+#dc__library-section .dc__card-content .dc__card-title{
+	font-family: 'Aleo', sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	position: relative;
+}
+
+#dc__library-section .dc__card-content .dc__card-title::before{
+	position: absolute;
+	content: '';
+	width: 80px;
+	height: 1px;
+	border: 1px solid black;
+	bottom: -10px;
+	left: 0px;
+}
+
+#dc__library-section .dc__card-content .dc__card-info{
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+#dc__library-section .dc__card-content .dc__card-content-int{
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 18px;
+	font-weight: 400;
+	padding-bottom: 10px;
+}
+
+#dc__library-section .dc__card-content .dc__card-link{
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	color: black;
+	transition: .4s;
+}
+
+#dc__library-section .dc__card-content .dc__card-link:hover{
+	opacity: .7;
+}
+
+#dc__library-section .dc__card-content .dc__card-link i{
+	margin-left: 5px;
+}
+
+#dc__library-section .dc__content-button-loadmore{
+	width: 100%;
+}
+
 /* Estilos para el pop-up */
 #videoPopup {
   display: none;
@@ -29,6 +126,10 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
+}
+
+button {
+  margin: 10px;
 }
 
 /* Clase para desactivar el scroll */
