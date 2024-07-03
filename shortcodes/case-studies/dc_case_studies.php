@@ -3,6 +3,13 @@ if (!function_exists('dc_case_studies_function')) {
   add_shortcode('dc_case_studies', 'dc_case_studies_function');
   function dc_case_studies_function()
   {
+    wp_enqueue_style('dc-case-studies-style', get_stylesheet_directory_uri() . '/shortcodes/case-studies/dc_case_studies.css', array(), '1.0');
+    wp_enqueue_script('dc-case-studies-script', get_stylesheet_directory_uri() . '/shortcodes/case-studies/dc_case_studies.js', array('jquery'), null, true);
+    wp_localize_script('dc-case-studies-script', 'wp_ajax', array(
+      'ajax_url'            => admin_url('admin-ajax.php'),
+      'nonce'               => wp_create_nonce('load_more_nonce'),
+      'theme_directory_uri' => get_stylesheet_directory_uri(),
+    ));
     ob_start();
     $html = '';
     $mapaImg = dc_mapa_mundi_svg();
@@ -63,7 +70,7 @@ function dc_mapa_mundi_svg()
   return '
   <?xml version="1.0" encoding="utf-8"?>
   <!-- Generator: Adobe Illustrator 27.9.4, SVG Export Plug-In . SVG Version: 9.03 Build 54784)  -->
-  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+  <svg id="mapa-mundi" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
     viewBox="0 0 2500 1600" style="enable-background:new 0 0 2500 1600;" xml:space="preserve">
   <style type="text/css">
     .st0{fill:#E5E5E5;stroke:#F7F7F7;stroke-miterlimit:10;}
