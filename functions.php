@@ -50,3 +50,8 @@ require 'shortcodes/tab9/dc_tab9.php'; // Tab 9 shortcode for the Deliberation o
 require 'utilities/dc_html_filter.php'; // Filters HTML
 require 'utilities/dc_load_more_button.php'; // Load more button HTML
 require 'utilities/dc_utilities.php'; // Utilities functions
+
+///////////////////////////////////////////////////////////////////////
+////////////////////////////Post Types/////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+require 'post-types/dc_case_study.php'; // Case Stydies
