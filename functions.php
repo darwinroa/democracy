@@ -43,6 +43,7 @@ require 'shortcodes/members/dc_members.php'; // Members filter shortcode
 require 'shortcodes/library/dc_library.php'; // Libraries filter shortcode
 require 'shortcodes/team/dc_team.php'; // Team Pop Up shortcode
 require 'shortcodes/tab9/dc_tab9.php'; // Tab 9 shortcode for the Deliberation on Difficult Issues page
+require 'shortcodes/case-studies/dc_case_studies.php'; // Case Studies shortocode
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////UTILIDADES GENRALES/////////////////////////////
