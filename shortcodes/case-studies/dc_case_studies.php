@@ -3,9 +3,59 @@ if (!function_exists('dc_case_studies_function')) {
   add_shortcode('dc_case_studies', 'dc_case_studies_function');
   function dc_case_studies_function()
   {
+    ob_start();
+    $html = '';
     $mapaImg = dc_mapa_mundi_svg();
-    return $mapaImg;
+    $post_per_page = -1;
+    $args = array(
+      'post_type' => 'case_studies',
+      'posts_per_page' => $post_per_page
+    );
+    $query_loop = dc_query_case_studies_loop($args);
+    $html .= "<div id='dc__case_studies-section'>";
+    $html .= $mapaImg;
+    $html .= $query_loop;
+    $html .= "</div>";
+    return $html;
   }
+}
+
+function dc_query_case_studies_loop($args)
+{
+  $query = new WP_Query($args);
+  $html = "";
+  if ($query->have_posts()) :
+    ob_start();
+    while ($query->have_posts()) : $query->the_post();
+      $title = get_the_title();
+      $linkText = get_field('case_study_text_link');
+      $url = get_field('case_study_link_web');
+      $description = get_the_content();
+      $img = get_the_post_thumbnail(
+        null,
+        'medium',
+        array(
+          'class'   => 'dc__card-logo',
+          'width'   => 300,
+          'height'  => 300,
+        )
+      );
+      $html .= "
+      <div class='dc__loop-card'>
+        <div class='dc__card-content'>
+          $img
+          <h3 class='dc__card-title'>$title</h3>
+          <p class='dc__card-location'>Location</p>
+          <div class='dc__card-description'>$description</div>
+          <a href='$url' target='_blank' rel='noopener noreferrer' class='dc__card-link'>$linkText</a>
+        </div>
+      </div>";
+    endwhile;
+    wp_reset_postdata(); // Resetea los datos del post
+    $html .= ob_get_clean();
+  else : $html .= "<div class='dc__without-results'>No se encontraron resultados</div>";
+  endif;
+  return $html;
 }
 
 function dc_mapa_mundi_svg()
