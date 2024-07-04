@@ -35,6 +35,8 @@ function dc_query_case_studies_loop($args)
       $linkText = get_field('case_study_text_link');
       $url = get_field('case_study_link_web');
       $description = get_the_content();
+      $term = get_the_terms(get_the_ID(), 'locations');
+      $location = esc_html($term[0]->name);
       $img = get_the_post_thumbnail(
         null,
         'medium',
@@ -49,7 +51,7 @@ function dc_query_case_studies_loop($args)
         <div class='dc__card-content'>
           $img
           <h3 class='dc__card-title'>$title</h3>
-          <p class='dc__card-location'>Location</p>
+          <p class='dc__card-location'>$location</p>
           <div class='dc__card-description'>$description</div>
           <a href='$url' target='_blank' rel='noopener noreferrer' class='dc__card-link'>$linkText</a>
         </div>
