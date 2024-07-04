@@ -13,15 +13,12 @@ if (!function_exists('dc_case_studies_function')) {
     ob_start();
     $html = '';
     $mapaImg = dc_mapa_mundi_svg();
-    $post_per_page = -1;
-    $args = array(
-      'post_type' => 'case_studies',
-      'posts_per_page' => $post_per_page
-    );
-    $query_loop = dc_query_case_studies_loop($args);
     $html .= "<div id='dc__case_studies-section'>";
     $html .= $mapaImg;
-    $html .= $query_loop;
+    $html .= "<div class='dc__content-loop'>";
+    $html .= "<div class='dc__content-loop-grid'>";
+    $html .= "</div>";
+    $html .= "</div>";
     $html .= "</div>";
     return $html;
   }
@@ -63,6 +60,41 @@ function dc_query_case_studies_loop($args)
   else : $html .= "<div class='dc__without-results'>No se encontraron resultados</div>";
   endif;
   return $html;
+}
+
+/**
+ * Función para la respuesta del Ajax
+ */
+if (!function_exists('dc_case_study_ajax')) {
+  add_action('wp_ajax_nopriv_dc_case_study_ajax', 'dc_case_study_ajax');
+  add_action('wp_ajax_dc_case_study_ajax', 'dc_case_study_ajax');
+
+  function dc_case_study_ajax()
+  {
+    check_ajax_referer('load_more_nonce', 'nonce');
+    $idCountry = isset($_POST['idCountry']) ? sanitize_text_field($_POST['idCountry']) : '';
+
+    /**
+     * Construyendo los argumentos necesarios para el Query
+     */
+    $tax_query = array();
+    $tax_query[] =  array(
+      'taxonomy' => 'locations',
+      'field' => 'slug',
+      'terms' => $idCountry,
+    );
+    $post_per_page = -1;
+    $args = array(
+      'post_type' => 'case_studies',
+      'posts_per_page' => $post_per_page,
+      'tax_query' => $tax_query,
+    );
+    $query_loop = dc_query_case_studies_loop($args);
+    $html = $query_loop;
+
+    wp_send_json_success($html);
+    wp_die();
+  }
 }
 
 function dc_mapa_mundi_svg()

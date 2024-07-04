@@ -1,6 +1,39 @@
 jQuery(document).ready(function($) {
   $('#mapa-mundi').on('click', 'g', function() {
-      var id = $(this).attr('id');
-      console.log('se presionó en--->', id);
+      var idCountry = $(this).attr('id');
+      console.log('se presionó en--->', idCountry);
+      isLoadMore = false;
+      dcCaseStudyAjax(idCountry);
   });
+  
+  function dcCaseStudyAjax (idCountry) {
+    $.ajax({
+      url: wp_ajax.ajax_url,
+      type: 'post',
+      data: {
+        action: 'dc_case_study_ajax',
+        nonce: wp_ajax.nonce,
+        idCountry
+      },
+      beforeSend: function(){
+        const loaderUrl = wp_ajax.theme_directory_uri + '/inc/img/ri-preloader.svg';
+        const loaderIcon = `<div class='dc-loader-ajax' bis_skin_checked='1'><img decoding='async' alt='Loading' data-src='${loaderUrl}' class='ls-is-cached lazyloaded' src='${loaderUrl}'></div>`;
+        isLoadMore ?
+          $('#dc__case_studies-section .dc__content-loop-grid').after(loaderIcon) :
+          $('#dc__case_studies-section .dc__content-loop-grid').html(loaderIcon);
+      },
+      success: function(response) {
+        if (response.success) {
+          if(isLoadMore) {
+            $('.dc-loader-ajax').remove();
+            $('#dc__case_studies-section .dc__content-loop-grid').append(response.data);
+          } else {
+            $('#dc__case_studies-section .dc__content-loop-grid').html(response.data);
+          }
+        } else {
+            $('#dc__case_studies-section .dc__content-loop-grid').html('<p>Hubo un error en la solicitud.</p>');
+        }
+      }
+    })
+  }
 });
