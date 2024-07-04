@@ -1,0 +1,9 @@
+#mapa-mundi g path:hover {
+  cursor: pointer;
+  stroke: black;
+  stroke-width: 3;
+}
+
+#mapa-mundi g.active path {
+  fill: #0B1840;
+}

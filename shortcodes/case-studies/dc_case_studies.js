@@ -1,6 +1,8 @@
 jQuery(document).ready(function($) {
   $('#mapa-mundi').on('click', 'g', function() {
       var idCountry = $(this).attr('id');
+      $('g').removeClass('active');
+      $(this).addClass('active');
       console.log('se presionó en--->', idCountry);
       isLoadMore = false;
       dcCaseStudyAjax(idCountry);
