@@ -10,18 +10,47 @@ if (!function_exists('dc_case_studies_function')) {
       'nonce'               => wp_create_nonce('load_more_nonce'),
       'theme_directory_uri' => get_stylesheet_directory_uri(),
     ));
+    $args = array(
+      'post_type' => 'case_studies',
+    );
+    $total_post = dc_query_total_case_studies($args);
     ob_start();
     $html = '';
     $mapaImg = dc_mapa_mundi_svg();
     $html .= "<div id='dc__case_studies-section'>";
     $html .= $mapaImg;
     $html .= "<div class='dc__content-loop'>";
+    $html .= "
+      <div class='dc__sidebar-filter'>
+        <div class='dc__sidebar-title'>Global members</div>
+        <ul class='dc__sidebar-locations'>
+          <li class='dc__sidebar-location'>
+            <span class='dc__location-count'>$total_post</span>
+            <h3 class='dc__location-title'>Members worldwide</h3>
+          </li>
+        </ul>
+      </div>";
+    $html .= "<div class='dc__content-body'>";
+    $html .= "
+      <div class='dc__content-head'>
+        <select name='dc-country-select' id='dc-country-select' class='dc__country-select'>
+          <option value=' class='dc__country-option' selected>Select a Country</option>
+        </select>
+      </div>";
     $html .= "<div class='dc__content-loop-grid'>";
+    $html .= "</div>";
     $html .= "</div>";
     $html .= "</div>";
     $html .= "</div>";
     return $html;
   }
+}
+
+function dc_query_total_case_studies($args)
+{
+  $query = new WP_Query($args);
+  $total_post = $query->found_posts;
+  return $total_post;
 }
 
 function dc_query_case_studies_loop($args)
