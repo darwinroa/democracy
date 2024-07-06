@@ -14,9 +14,10 @@ if (!function_exists('dc_case_studies_function')) {
       'post_type' => 'case_studies',
     );
     $total_post = dc_query_total_case_studies($args);
+    $mapaImg = dc_mapa_mundi_svg();
+    $sidebar_location_list = dc_sidebar_location_list();
     ob_start();
     $html = '';
-    $mapaImg = dc_mapa_mundi_svg();
     $html .= "<div id='dc__case_studies-section'>";
     $html .= $mapaImg;
     $html .= "<div class='dc__content-loop'>";
@@ -28,6 +29,7 @@ if (!function_exists('dc_case_studies_function')) {
             <span class='dc__location-count'>$total_post</span>
             <h3 class='dc__location-title'>Members worldwide</h3>
           </li>
+          $sidebar_location_list
         </ul>
       </div>";
     $html .= "<div class='dc__content-body'>";
@@ -44,6 +46,45 @@ if (!function_exists('dc_case_studies_function')) {
     $html .= "</div>";
     return $html;
   }
+}
+
+function dc_sidebar_location_list()
+{
+  $parent_locations = dc_get_parent_locations();
+  $html = '';
+  if (!empty($parent_locations)) {
+    foreach ($parent_locations as $location) {
+      $html .= "";
+      $html .= "
+            <li class='dc__sidebar-location'>
+              <span class='dc__location-count'></span>
+              <h3 class='dc__location-title'>$location->name</h3>
+            </li>
+          ";
+    }
+  }
+  return $html;
+}
+
+function dc_get_parent_locations()
+{
+  // Argumentos para obtener términos de la taxonomía 'locations'
+  $args = array(
+    'taxonomy'   => 'locations',
+    'hide_empty' => false,
+    'parent'     => 0, // Solo términos padres
+  );
+
+  // Obtener los términos de la taxonomía 'locations' que sean padres
+  $parent_terms = get_terms($args);
+
+  // Verificar si se obtuvieron términos
+  if (!is_wp_error($parent_terms) && !empty($parent_terms)) {
+    return $parent_terms;
+  }
+
+  // Retornar un array vacío si no hay términos padres o si ocurre un error
+  return array();
 }
 
 function dc_query_total_case_studies($args)
