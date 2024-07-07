@@ -75,7 +75,7 @@ function dc_sidebar_location_list()
       $html .= "
             <li class='dc__sidebar-location'>
               <span class='dc__location-count'>$totalPost</span>
-              <h3 class='dc__location-title'>$location->name</h3>
+              <h3 id='$location->term_id' class='dc__location-title'>$location->name</h3>
             </li>
           ";
     }
