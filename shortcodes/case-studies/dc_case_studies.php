@@ -13,9 +13,10 @@ if (!function_exists('dc_case_studies_function')) {
     $args = array(
       'post_type' => 'case_studies',
     );
-    $total_post = dc_query_total_case_studies($args);
+    $totalPost = dc_query_total_case_studies($args);
     $mapaImg = dc_mapa_mundi_svg();
-    $sidebar_location_list = dc_sidebar_location_list();
+    $sidebarLocationList = dc_sidebar_location_list();
+    $countryOptions = dc_country_list();
     ob_start();
     $html = '';
     $html .= "<div id='dc__case_studies-section'>";
@@ -26,17 +27,18 @@ if (!function_exists('dc_case_studies_function')) {
         <div class='dc__sidebar-title'>Global members</div>
         <ul class='dc__sidebar-locations'>
           <li class='dc__sidebar-location'>
-            <span class='dc__location-count'>$total_post</span>
+            <span class='dc__location-count'>$totalPost</span>
             <h3 class='dc__location-title'>Members worldwide</h3>
           </li>
-          $sidebar_location_list
+          $sidebarLocationList
         </ul>
       </div>";
     $html .= "<div class='dc__content-body'>";
     $html .= "
       <div class='dc__content-head'>
         <select name='dc-country-select' id='dc-country-select' class='dc__country-select'>
-          <option value=' class='dc__country-option' selected>Select a Country</option>
+          <option value='' class='dc__country-option' selected>Select a Country</option>
+          $countryOptions
         </select>
       </div>";
     $html .= "<div class='dc__content-loop-grid'>";
@@ -50,7 +52,8 @@ if (!function_exists('dc_case_studies_function')) {
 
 function dc_sidebar_location_list()
 {
-  $parent_locations = dc_get_parent_locations();
+  $isParent = true;
+  $parent_locations = dc_get_parent_locations($isParent);
   $html = '';
   if (!empty($parent_locations)) {
     foreach ($parent_locations as $location) {
@@ -65,10 +68,10 @@ function dc_sidebar_location_list()
           )
         )
       );
-      $total_post = dc_query_total_case_studies($args);
+      $totalPost = dc_query_total_case_studies($args);
       $html .= "
             <li class='dc__sidebar-location'>
-              <span class='dc__location-count'>$total_post</span>
+              <span class='dc__location-count'>$totalPost</span>
               <h3 class='dc__location-title'>$location->name</h3>
             </li>
           ";
@@ -77,7 +80,21 @@ function dc_sidebar_location_list()
   return $html;
 }
 
-function dc_get_parent_locations()
+function dc_country_list()
+{
+  // Ejemplo de cómo usar la función
+  $child_locations = dc_get_parent_locations(false);
+  $html = '';
+  // Imprimir los nombres de las categorías hijas
+  if (!empty($child_locations)) {
+    foreach ($child_locations as $location) {
+      $html .= "<option value='$location->term_id' class='dc__country-option'>$location->name</option>";
+    }
+  }
+  return $html;
+}
+
+function dc_get_parent_locations($isParent)
 {
   // Argumentos para obtener términos de la taxonomía 'locations'
   $args = array(
@@ -91,7 +108,67 @@ function dc_get_parent_locations()
 
   // Verificar si se obtuvieron términos
   if (!is_wp_error($parent_terms) && !empty($parent_terms)) {
-    return $parent_terms;
+    if ($isParent) return $parent_terms;
+
+    $child_terms = array();
+    // Recorrer cada término padre y obtener sus hijos
+    foreach ($parent_terms as $parent) {
+      $child_args = array(
+        'taxonomy'   => 'locations',
+        'hide_empty' => false,
+        'parent'     => $parent->term_id, // Solo términos hijos de este padre
+      );
+
+      // Obtener los términos hijos del padre actual
+      $children = get_terms($child_args);
+
+      // Agregar los términos hijos al array de términos hijos
+      if (!is_wp_error($children) && !empty($children)) {
+        $child_terms = array_merge($child_terms, $children);
+      }
+    }
+
+    return $child_terms;
+  }
+
+  // Retornar un array vacío si no hay términos padres o si ocurre un error
+  return array();
+}
+
+
+function get_child_locations()
+{
+  // Argumentos para obtener términos de la taxonomía 'locations'
+  $args = array(
+    'taxonomy'   => 'locations',
+    'hide_empty' => false,
+    'parent'     => 0, // Solo términos padres
+  );
+
+  // Obtener los términos de la taxonomía 'locations' que sean padres
+  $parent_terms = get_terms($args);
+
+  // Verificar si se obtuvieron términos padres
+  if (!is_wp_error($parent_terms) && !empty($parent_terms)) {
+    $child_terms = array();
+    // Recorrer cada término padre y obtener sus hijos
+    foreach ($parent_terms as $parent) {
+      $child_args = array(
+        'taxonomy'   => 'locations',
+        'hide_empty' => false,
+        'parent'     => $parent->term_id, // Solo términos hijos de este padre
+      );
+
+      // Obtener los términos hijos del padre actual
+      $children = get_terms($child_args);
+
+      // Agregar los términos hijos al array de términos hijos
+      if (!is_wp_error($children) && !empty($children)) {
+        $child_terms = array_merge($child_terms, $children);
+      }
+    }
+
+    return $child_terms;
   }
 
   // Retornar un array vacío si no hay términos padres o si ocurre un error
@@ -101,8 +178,8 @@ function dc_get_parent_locations()
 function dc_query_total_case_studies($args)
 {
   $query = new WP_Query($args);
-  $total_post = $query->found_posts;
-  return $total_post;
+  $totalPost = $query->found_posts;
+  return $totalPost;
 }
 
 function dc_query_case_studies_loop($args)
