@@ -13,10 +13,10 @@ if (!function_exists('dc_case_studies_function')) {
     $args = array(
       'post_type' => 'case_studies',
     );
-    $totalPost = dc_query_total_case_studies($args);
-    $mapaImg = dc_mapa_mundi_svg();
-    $sidebarLocationList = dc_sidebar_location_list();
-    $countryOptions = dc_country_list();
+    $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
+    $mapaImg = dc_mapa_mundi_svg(); // Retorna el SVG del mapa mundi
+    $sidebarLocationList = dc_sidebar_location_list(); // Retorna el listado de regiones que irá en el sidebar
+    $countryOptions = dc_country_list(); // Retorna el listado de Paises que irán en el select
     ob_start();
     $html = '';
     $html .= "<div id='dc__case_studies-section'>";
@@ -50,10 +50,13 @@ if (!function_exists('dc_case_studies_function')) {
   }
 }
 
+/**
+ * Retorna el listado de regiones que irá en el sidebar
+ */
 function dc_sidebar_location_list()
 {
   $isParent = true;
-  $parent_locations = dc_get_parent_locations($isParent);
+  $parent_locations = dc_get_locations($isParent); // Retorna las localizaciones padres.
   $html = '';
   if (!empty($parent_locations)) {
     foreach ($parent_locations as $location) {
@@ -68,7 +71,7 @@ function dc_sidebar_location_list()
           )
         )
       );
-      $totalPost = dc_query_total_case_studies($args);
+      $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
       $html .= "
             <li class='dc__sidebar-location'>
               <span class='dc__location-count'>$totalPost</span>
@@ -80,10 +83,12 @@ function dc_sidebar_location_list()
   return $html;
 }
 
+/**
+ * Retorna el listado de Paises que irán en el select
+ */
 function dc_country_list()
 {
-  // Ejemplo de cómo usar la función
-  $child_locations = dc_get_parent_locations(false);
+  $child_locations = dc_get_locations(false);
   $html = '';
   // Imprimir los nombres de las categorías hijas
   if (!empty($child_locations)) {
@@ -94,7 +99,12 @@ function dc_country_list()
   return $html;
 }
 
-function dc_get_parent_locations($isParent)
+/**
+ * Retorna las localizaciones padre o hijos. 
+ * Recibe un parámetro booleano.
+ * Este parámetro se usa para indicar si retorna los valores padres de la taxonomía o los hijos
+ */
+function dc_get_locations($isParent)
 {
   // Argumentos para obtener términos de la taxonomía 'locations'
   $args = array(
@@ -135,46 +145,10 @@ function dc_get_parent_locations($isParent)
   return array();
 }
 
-
-function get_child_locations()
-{
-  // Argumentos para obtener términos de la taxonomía 'locations'
-  $args = array(
-    'taxonomy'   => 'locations',
-    'hide_empty' => false,
-    'parent'     => 0, // Solo términos padres
-  );
-
-  // Obtener los términos de la taxonomía 'locations' que sean padres
-  $parent_terms = get_terms($args);
-
-  // Verificar si se obtuvieron términos padres
-  if (!is_wp_error($parent_terms) && !empty($parent_terms)) {
-    $child_terms = array();
-    // Recorrer cada término padre y obtener sus hijos
-    foreach ($parent_terms as $parent) {
-      $child_args = array(
-        'taxonomy'   => 'locations',
-        'hide_empty' => false,
-        'parent'     => $parent->term_id, // Solo términos hijos de este padre
-      );
-
-      // Obtener los términos hijos del padre actual
-      $children = get_terms($child_args);
-
-      // Agregar los términos hijos al array de términos hijos
-      if (!is_wp_error($children) && !empty($children)) {
-        $child_terms = array_merge($child_terms, $children);
-      }
-    }
-
-    return $child_terms;
-  }
-
-  // Retornar un array vacío si no hay términos padres o si ocurre un error
-  return array();
-}
-
+/**
+ * Retorna el total de posts relacionado al query. 
+ * El parámetro $args, son los argumentos necesarios del query
+ */
 function dc_query_total_case_studies($args)
 {
   $query = new WP_Query($args);
@@ -182,6 +156,10 @@ function dc_query_total_case_studies($args)
   return $totalPost;
 }
 
+/**
+ * Retorna el HTML del lop de cards relacionadas a un país.
+ * El parámetro $args, son los argumentos necesarios del query.
+ */
 function dc_query_case_studies_loop($args)
 {
   $query = new WP_Query($args);
@@ -257,6 +235,9 @@ if (!function_exists('dc_case_study_ajax')) {
   }
 }
 
+/**
+ * Retorna el SVG del mapa mundi
+ */
 function dc_mapa_mundi_svg()
 {
   return '
