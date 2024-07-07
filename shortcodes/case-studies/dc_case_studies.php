@@ -55,9 +55,20 @@ function dc_sidebar_location_list()
   if (!empty($parent_locations)) {
     foreach ($parent_locations as $location) {
       $html .= "";
+      $args = array(
+        'post_type' => 'case_studies',
+        'tax_query'     => array(
+          array(
+            'taxonomy'  => 'locations',
+            'field'     => 'slug',
+            'terms'     => $location->slug
+          )
+        )
+      );
+      $total_post = dc_query_total_case_studies($args);
       $html .= "
             <li class='dc__sidebar-location'>
-              <span class='dc__location-count'></span>
+              <span class='dc__location-count'>$total_post</span>
               <h3 class='dc__location-title'>$location->name</h3>
             </li>
           ";
