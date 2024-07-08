@@ -25,32 +25,28 @@ if (!function_exists('dc_case_studies_function')) {
     $countryOptions = dc_country_list(); // Retorna el listado de Paises que irán en el select
     ob_start();
     $html = '';
-    $html .= "<div id='dc__case_studies-section'>";
-    $html .= $mapaImg;
-    $html .= "<div class='dc__content-loop'>";
     $html .= "
-      <div class='dc__sidebar-filter'>
-        <div class='dc__sidebar-title'>Global members</div>
-        <ul class='dc__sidebar-locations'>
-          <li class='dc__sidebar-location'>
-            <span class='dc__location-count'>$totalPost</span>
-            <h3 data-country='' class='dc__location-title'>Members worldwide</h3>
-          </li>
-          $sidebarLocationList
-        </ul>
+      <div id='dc__case_studies-section'>
+        $mapaImg
+        <div class='dc__content-loop'><div class='dc__sidebar-filter'>
+          <div class='dc__sidebar-title'>Global members</div>
+          <ul class='dc__sidebar-locations'>
+            <li class='dc__sidebar-location'>
+              <span class='dc__location-count'>$totalPost</span>
+              <h3 data-country='' class='dc__location-title'>Members worldwide</h3>
+            </li>
+            $sidebarLocationList
+          </ul>
+        </div>
+        <div class='dc__content-body'>
+          <div class='dc__content-head'>
+            <select name='dc-country-select' id='dc-country-select' class='dc__country-select'>
+              $countryOptions
+            </select>
+          </div>
+          <div class='dc__content-loop-grid'></div>
+        </div>
       </div>";
-    $html .= "<div class='dc__content-body'>";
-    $html .= "
-      <div class='dc__content-head'>
-        <select name='dc-country-select' id='dc-country-select' class='dc__country-select'>
-          $countryOptions
-        </select>
-      </div>";
-    $html .= "<div class='dc__content-loop-grid'>";
-    $html .= "</div>";
-    $html .= "</div>";
-    $html .= "</div>";
-    $html .= "</div>";
     return $html;
   }
 }
