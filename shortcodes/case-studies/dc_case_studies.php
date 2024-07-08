@@ -27,6 +27,10 @@ if (!function_exists('dc_case_studies_function')) {
     $html = '';
     $html .= "
       <div id='dc__case_studies-section'>
+        <div class='dc__case_studies-header'>
+          <h5 class='dc__header-total-members'>To view our members across organizations and individuals</h5>
+          <h3 class='dc__header-country'>Select a country</h3>
+        </div>
         $mapaImg
         <div class='dc__content-loop'><div class='dc__sidebar-filter'>
           <div class='dc__sidebar-title'>Global members</div>
