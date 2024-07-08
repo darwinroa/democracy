@@ -37,7 +37,6 @@ if (!function_exists('dc_case_studies_function')) {
     $html .= "
       <div class='dc__content-head'>
         <select name='dc-country-select' id='dc-country-select' class='dc__country-select'>
-          <option value='' class='dc__country-option' selected>Select a Country</option>
           $countryOptions
         </select>
       </div>";
@@ -75,7 +74,7 @@ function dc_sidebar_location_list()
       $html .= "
             <li class='dc__sidebar-location'>
               <span class='dc__location-count'>$totalPost</span>
-              <h3 data-country='$location->slug' class='dc__location-title'>$location->name</h3>
+              <h3 data-countryid='$location->term_id' data-country='$location->slug' class='dc__location-title'>$location->name</h3>
             </li>
           ";
     }
@@ -89,7 +88,7 @@ function dc_sidebar_location_list()
 function dc_country_list()
 {
   $child_locations = dc_get_locations(false);
-  $html = '';
+  $html = "<option value='' class='dc__country-option' selected>Select a Country</option>";
   // Imprimir los nombres de las categorías hijas
   if (!empty($child_locations)) {
     foreach ($child_locations as $location) {
@@ -123,15 +122,7 @@ function dc_get_locations($isParent)
     $child_terms = array();
     // Recorrer cada término padre y obtener sus hijos
     foreach ($parent_terms as $parent) {
-      $child_args = array(
-        'taxonomy'   => 'locations',
-        'hide_empty' => false,
-        'parent'     => $parent->term_id, // Solo términos hijos de este padre
-      );
-
-      // Obtener los términos hijos del padre actual
-      $children = get_terms($child_args);
-
+      $children = dc_get_child_locations($parent->term_id);
       // Agregar los términos hijos al array de términos hijos
       if (!is_wp_error($children) && !empty($children)) {
         $child_terms = array_merge($child_terms, $children);
@@ -140,9 +131,21 @@ function dc_get_locations($isParent)
 
     return $child_terms;
   }
-
   // Retornar un array vacío si no hay términos padres o si ocurre un error
   return array();
+}
+
+function dc_get_child_locations($parentId)
+{
+  $child_args = array(
+    'taxonomy'   => 'locations',
+    'hide_empty' => false,
+    'parent'     => $parentId, // Solo términos hijos de este padre
+  );
+
+  // Obtener los términos hijos del padre actual
+  $children = get_terms($child_args);
+  return $children;
 }
 
 /**
@@ -201,7 +204,7 @@ function dc_query_case_studies_loop($args)
 }
 
 /**
- * Función para la respuesta del Ajax
+ * Función Ajax para el grid de casos de estudios
  */
 if (!function_exists('dc_case_study_ajax')) {
   add_action('wp_ajax_nopriv_dc_case_study_ajax', 'dc_case_study_ajax');
@@ -210,7 +213,7 @@ if (!function_exists('dc_case_study_ajax')) {
   function dc_case_study_ajax()
   {
     check_ajax_referer('load_more_nonce', 'nonce');
-    $idCountry = isset($_POST['idCountry']) ? sanitize_text_field($_POST['idCountry']) : '';
+    $slugCountry = isset($_POST['slugCountry']) ? sanitize_text_field($_POST['slugCountry']) : '';
 
     /**
      * Construyendo los argumentos necesarios para el Query
@@ -219,7 +222,7 @@ if (!function_exists('dc_case_study_ajax')) {
     $tax_query[] =  array(
       'taxonomy' => 'locations',
       'field' => 'slug',
-      'terms' => $idCountry,
+      'terms' => $slugCountry,
     );
     $post_per_page = -1;
     $args = array(

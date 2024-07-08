@@ -3,38 +3,39 @@ jQuery(document).ready(function($) {
    * Se activa luego de presionar sobre cualquier país del mapa
    */
   $('#mapa-mundi').on('click', 'g', function() {
-    var idCountry = $(this).attr('id');
+    var slugCountry = $(this).attr('id');
     $('g').removeClass('active');
     $(this).addClass('active');
-    console.log('se presionó en--->', idCountry);
+    console.log('se presionó en--->', slugCountry);
     isLoadMore = false;
-    dcCaseStudyAjax(idCountry);
+    dcCaseStudyAjax(slugCountry);
   });
   
   $('#dc-country-select').on('change', function() {
-    var idCountry = $(this).val();
-    console.log('País seleccionado desde el select--->', idCountry);
+    var slugCountry = $(this).val();
+    console.log('País seleccionado desde el select--->', slugCountry);
     $('g').removeClass('active');
-    $('#mapa-mundi #' + idCountry).addClass('active');
+    $('#mapa-mundi #' + slugCountry).addClass('active');
     isLoadMore = false;
-    dcCaseStudyAjax(idCountry);
+    dcCaseStudyAjax(slugCountry);
   });
 
   $('.dc__sidebar-filter .dc__sidebar-location ').on('click', '.dc__location-title', function() {
-    var idCountry = $(this).data('country');
-    console.log('País seleccionado desde el select--->', idCountry);
+    var slugCountry = $(this).data('country');
+    var idCountry = $(this).data('countryid');
+    console.log('País seleccionado desde el select--->', slugCountry);
     isLoadMore = false;
-    dcCaseStudyAjax(idCountry);
+    dcCaseStudyAjax(slugCountry);
   })
 
-  function dcCaseStudyAjax (idCountry) {
+  function dcCaseStudyAjax (slugCountry) {
     $.ajax({
       url: wp_ajax.ajax_url,
       type: 'post',
       data: {
         action: 'dc_case_study_ajax',
         nonce: wp_ajax.nonce,
-        idCountry
+        slugCountry
       },
       beforeSend: function(){
         const loaderUrl = wp_ajax.theme_directory_uri + '/inc/img/ri-preloader.svg';
