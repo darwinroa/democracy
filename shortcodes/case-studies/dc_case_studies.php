@@ -93,7 +93,7 @@ function dc_country_list()
   // Imprimir los nombres de las categorías hijas
   if (!empty($child_locations)) {
     foreach ($child_locations as $location) {
-      $html .= "<option value='$location->term_id' class='dc__country-option'>$location->name</option>";
+      $html .= "<option value='$location->slug' class='dc__country-option'>$location->name</option>";
     }
   }
   return $html;

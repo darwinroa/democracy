@@ -1,13 +1,25 @@
 jQuery(document).ready(function($) {
+  /**
+   * Se activa luego de presionar sobre cualquier país del mapa
+   */
   $('#mapa-mundi').on('click', 'g', function() {
-      var idCountry = $(this).attr('id');
-      $('g').removeClass('active');
-      $(this).addClass('active');
-      console.log('se presionó en--->', idCountry);
-      isLoadMore = false;
-      dcCaseStudyAjax(idCountry);
+    var idCountry = $(this).attr('id');
+    $('g').removeClass('active');
+    $(this).addClass('active');
+    console.log('se presionó en--->', idCountry);
+    isLoadMore = false;
+    dcCaseStudyAjax(idCountry);
   });
   
+  $('#dc-country-select').on('change', function() {
+    var idCountry = $(this).val();
+    console.log('País seleccionado desde el select--->', idCountry);
+    $('g').removeClass('active');
+    $('#mapa-mundi #' + idCountry).addClass('active');
+    isLoadMore = false;
+    dcCaseStudyAjax(idCountry);
+  })
+
   function dcCaseStudyAjax (idCountry) {
     $.ajax({
       url: wp_ajax.ajax_url,
