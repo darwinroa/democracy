@@ -28,8 +28,8 @@ if (!function_exists('dc_case_studies_function')) {
     $html .= "
       <div id='dc__case_studies-section'>
         <div class='dc__case_studies-header'>
-          <h5 class='dc__header-total-members'>To view our members across organizations and individuals</h5>
-          <h3 class='dc__header-country'>Select a country</h3>
+          <h5 id='dc__header-total-members' class='dc__header-total-members'>To view our members across organizations and individuals</h5>
+          <h3 id='dc__header-country' class='dc__header-country'>Select a country</h3>
         </div>
         $mapaImg
         <div class='dc__content-loop'><div class='dc__sidebar-filter'>
@@ -50,7 +50,16 @@ if (!function_exists('dc_case_studies_function')) {
           </div>
           <div class='dc__content-loop-grid'></div>
         </div>
-      </div>";
+      </div>
+    ";
+    $test = dc_country_members_data();
+?>
+    <pre>
+      <?php
+      var_dump($test);
+      ?>
+    </pre>
+<?php
     return $html;
   }
 }
@@ -207,6 +216,36 @@ function dc_query_case_studies_loop($args)
   else : $html .= "<div class='dc__without-results'>No se encontraron resultados</div>";
   endif;
   return $html;
+}
+
+/**
+ * Retorna un array donde lista cuantos miembros hay por cada país
+ */
+function dc_country_members_data()
+{
+  $data = array();
+  $child_locations = dc_get_locations(false);
+  if (!empty($child_locations)) {
+    foreach ($child_locations as $location) {
+      $dataSlug = $location->slug;
+      $argsCounter = array(
+        'post_type' => 'case_studies',
+        'tax_query'     => array(
+          array(
+            'taxonomy'  => 'locations',
+            'field'     => 'slug',
+            'terms'     => $dataSlug
+          )
+        )
+      );
+      $totalMembers = dc_query_total_case_studies($argsCounter);
+      $data[] = array(
+        'slug' => $dataSlug,
+        'total-members' => $totalMembers
+      );
+    }
+  }
+  return $data;
 }
 
 /**
