@@ -85,9 +85,9 @@ function dc_sidebar_location_list()
 /**
  * Retorna el listado de Paises que irán en el select
  */
-function dc_country_list()
+function dc_country_list($isAjax = false, $parentId = '')
 {
-  $child_locations = dc_get_locations(false);
+  $child_locations = $isAjax ? dc_get_child_locations($parentId) : dc_get_locations(false);
   $html = "<option value='' class='dc__country-option' selected>Select a Country</option>";
   // Imprimir los nombres de las categorías hijas
   if (!empty($child_locations)) {
@@ -232,6 +232,26 @@ if (!function_exists('dc_case_study_ajax')) {
     );
     $query_loop = dc_query_case_studies_loop($args);
     $html = $query_loop;
+
+    wp_send_json_success($html);
+    wp_die();
+  }
+}
+
+/**
+ * Función Ajax para listar los países que se muestran en el select
+ * luego de presionar sobre una localización del sidebar
+ */
+if (!function_exists('dc_options_countries_ajax')) {
+  add_action('wp_ajax_nopriv_dc_options_countries_ajax', 'dc_options_countries_ajax');
+  add_action('wp_ajax_dc_options_countries_ajax', 'dc_options_countries_ajax');
+
+  function dc_options_countries_ajax()
+  {
+    check_ajax_referer('load_more_nonce', 'nonce');
+    $idCountry = isset($_POST['idCountry']) ? sanitize_text_field($_POST['idCountry']) : '';
+
+    $html = dc_country_list(true, $idCountry);
 
     wp_send_json_success($html);
     wp_die();

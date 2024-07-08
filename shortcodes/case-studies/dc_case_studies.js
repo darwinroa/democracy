@@ -26,6 +26,7 @@ jQuery(document).ready(function($) {
     console.log('País seleccionado desde el select--->', slugCountry);
     isLoadMore = false;
     dcCaseStudyAjax(slugCountry);
+    dcCountriesAjax(idCountry);
   })
 
   function dcCaseStudyAjax (slugCountry) {
@@ -54,6 +55,23 @@ jQuery(document).ready(function($) {
           }
         } else {
             $('#dc__case_studies-section .dc__content-loop-grid').html('<p>Hubo un error en la solicitud.</p>');
+        }
+      }
+    })
+  }
+
+  function dcCountriesAjax(idCountry) {
+    $.ajax({
+      url: wp_ajax.ajax_url,
+      type: 'post',
+      data: {
+        action: 'dc_options_countries_ajax',
+        nonce: wp_ajax.nonce,
+        idCountry
+      },
+      success: function(response) {
+        if (response.success) {
+          $('#dc-country-select').html(response.data);
         }
       }
     })
