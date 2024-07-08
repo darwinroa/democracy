@@ -7,3 +7,8 @@
 #mapa-mundi g.active path {
   fill: #0B1840;
 }
+
+.dc__sidebar-location,
+#dc-country-select {
+  cursor: pointer;
+}

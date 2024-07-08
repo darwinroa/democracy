@@ -18,6 +18,13 @@ jQuery(document).ready(function($) {
     $('#mapa-mundi #' + idCountry).addClass('active');
     isLoadMore = false;
     dcCaseStudyAjax(idCountry);
+  });
+
+  $('.dc__sidebar-filter .dc__sidebar-location ').on('click', '.dc__location-title', function() {
+    var idCountry = $(this).data('country');
+    console.log('País seleccionado desde el select--->', idCountry);
+    isLoadMore = false;
+    dcCaseStudyAjax(idCountry);
   })
 
   function dcCaseStudyAjax (idCountry) {

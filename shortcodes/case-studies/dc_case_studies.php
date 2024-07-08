@@ -28,7 +28,7 @@ if (!function_exists('dc_case_studies_function')) {
         <ul class='dc__sidebar-locations'>
           <li class='dc__sidebar-location'>
             <span class='dc__location-count'>$totalPost</span>
-            <h3 class='dc__location-title'>Members worldwide</h3>
+            <h3 data-country='' class='dc__location-title'>Members worldwide</h3>
           </li>
           $sidebarLocationList
         </ul>
@@ -75,7 +75,7 @@ function dc_sidebar_location_list()
       $html .= "
             <li class='dc__sidebar-location'>
               <span class='dc__location-count'>$totalPost</span>
-              <h3 id='$location->term_id' class='dc__location-title'>$location->name</h3>
+              <h3 data-country='$location->slug' class='dc__location-title'>$location->name</h3>
             </li>
           ";
     }
