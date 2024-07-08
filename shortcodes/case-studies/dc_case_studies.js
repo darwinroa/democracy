@@ -23,6 +23,7 @@ jQuery(document).ready(function($) {
   $('.dc__sidebar-filter .dc__sidebar-location ').on('click', '.dc__location-title', function() {
     var slugCountry = $(this).data('country');
     var idCountry = $(this).data('countryid');
+    $('g').removeClass('active');
     console.log('País seleccionado desde el select--->', slugCountry);
     isLoadMore = false;
     dcCaseStudyAjax(slugCountry);
