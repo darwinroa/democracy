@@ -219,7 +219,7 @@ if (!function_exists('dc_case_study_ajax')) {
   function dc_case_study_ajax()
   {
     check_ajax_referer('load_more_nonce', 'nonce');
-    $slugCountry = isset($_POST['slugCountry']) ? sanitize_text_field($_POST['slugCountry']) : '';
+    $slugCountry = isset($_POST['slugCountry']) ? sanitize_text_field($_POST['slugCountry']) : false;
 
     /**
      * Construyendo los argumentos necesarios para el Query
@@ -231,11 +231,17 @@ if (!function_exists('dc_case_study_ajax')) {
       'terms' => $slugCountry,
     );
     $post_per_page = -1;
-    $args = array(
-      'post_type' => 'case_studies',
-      'posts_per_page' => $post_per_page,
-      'tax_query' => $tax_query,
-    );
+
+    $slugCountry ?
+      $args = array(
+        'post_type' => 'case_studies',
+        'posts_per_page' => $post_per_page,
+        'tax_query' => $tax_query,
+      ) :
+      $args = array(
+        'post_type' => 'case_studies',
+        'posts_per_page' => $post_per_page,
+      );
     $query_loop = dc_query_case_studies_loop($args);
     $html = $query_loop;
 
