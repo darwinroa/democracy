@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Crea el shortcode que imprime el mapa mundi
+ * y el filtro por regiones y países
+ * [dc_case_studies]
+ */
 if (!function_exists('dc_case_studies_function')) {
   add_shortcode('dc_case_studies', 'dc_case_studies_function');
   function dc_case_studies_function()
@@ -249,9 +255,11 @@ if (!function_exists('dc_options_countries_ajax')) {
   function dc_options_countries_ajax()
   {
     check_ajax_referer('load_more_nonce', 'nonce');
-    $idCountry = isset($_POST['idCountry']) ? sanitize_text_field($_POST['idCountry']) : '';
+    $idCountry = isset($_POST['idCountry']) ? sanitize_text_field($_POST['idCountry']) : false;
 
-    $html = dc_country_list(true, $idCountry);
+    // si idCountry tiene valor, dc_country_list carga los países hijos al parent proveniente de idCountry
+    // Si no tiene valor, entonces dc_country_list lista a todos los países
+    $html = $idCountry ? dc_country_list(true, $idCountry) : dc_country_list($idCountry);
 
     wp_send_json_success($html);
     wp_die();
