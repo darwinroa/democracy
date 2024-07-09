@@ -35,9 +35,11 @@ jQuery(document).ready(function($) {
     dcCaseStudyAjax(slugCountry);
   });
 
-  $('.dc__sidebar-filter .dc__sidebar-location ').on('click', '.dc__location-title', function() {
+  $('.dc__sidebar-filter .dc__sidebar-location').on('click', '.dc__location-title', function() {
     var slugCountry = $(this).data('country');
     var idCountry = $(this).data('countryid');
+    $('.dc__sidebar-location .dc__location-title').removeClass('active');
+    $(this).addClass('active');
     $('g').removeClass('active');
     $('.dc__sidebar-location').removeClass('dc__hide');
     console.log('País seleccionado desde el select--->', slugCountry);
