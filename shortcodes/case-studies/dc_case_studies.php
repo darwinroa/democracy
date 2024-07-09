@@ -32,23 +32,25 @@ if (!function_exists('dc_case_studies_function')) {
           <h3 id='dc__header-country' class='dc__header-country'>Select a country</h3>
         </div>
         $mapaImg
-        <div class='dc__content-loop'><div class='dc__sidebar-filter'>
-          <div class='dc__sidebar-title'>Global members</div>
-          <ul class='dc__sidebar-locations'>
-            <li class='dc__sidebar-location'>
-              <span class='dc__location-count'>$totalPost</span>
-              <h3 data-country='' class='dc__location-title'>Members worldwide</h3>
-            </li>
-            $sidebarLocationList
-          </ul>
-        </div>
-        <div class='dc__content-body'>
-          <div class='dc__content-head'>
-            <select name='dc-country-select' id='dc-country-select' class='dc__country-select'>
-              $countryOptions
-            </select>
+        <div class='dc__content-loop'>
+          <div class='dc__sidebar-filter'>
+            <div class='dc__sidebar-title'>Global members</div>
+            <ul class='dc__sidebar-locations'>
+              <li class='dc__sidebar-location'>
+                <span class='dc__location-count'>$totalPost</span>
+                <h3 data-country='' class='dc__location-title'>Members worldwide</h3>
+              </li>
+              $sidebarLocationList
+            </ul>
           </div>
-          <div class='dc__content-loop-grid'></div>
+          <div class='dc__content-body'>
+            <div class='dc__content-head'>
+              <select name='dc-country-select' id='dc-country-select' class='dc__country-select'>
+                $countryOptions
+              </select>
+            </div>
+            <div class='dc__content-loop-grid'></div>
+          </div>
         </div>
       </div>
     ";
@@ -79,7 +81,7 @@ function dc_sidebar_location_list()
       );
       $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
       $html .= "
-            <li class='dc__sidebar-location'>
+            <li class='dc__sidebar-location dc__hide'>
               <span class='dc__location-count'>$totalPost</span>
               <h3 data-countryid='$location->term_id' data-country='$location->slug' class='dc__location-title'>$location->name</h3>
             </li>
@@ -197,8 +199,8 @@ function dc_query_case_studies_loop($args)
         <div class='dc__card-content'>
           $img
           <h3 class='dc__card-title'>$title</h3>
-          <p class='dc__card-location'>$location</p>
-          <div class='dc__card-description'>$description</div>
+          <div class='dc__card-location'>$location</div>
+          <p class='dc__card-description'>$description</p>
           <a href='$url' target='_blank' rel='noopener noreferrer' class='dc__card-link'>$linkText</a>
         </div>
       </div>";
@@ -268,7 +270,7 @@ if (!function_exists('dc_case_study_ajax')) {
       'field' => 'slug',
       'terms' => $slugCountry,
     );
-    $post_per_page = -1;
+    $post_per_page = 6;
 
     $slugCountry ?
       $args = array(

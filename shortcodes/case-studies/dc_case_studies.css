@@ -1,3 +1,187 @@
+#dc__case_studies-section .dc__sidebar-location.dc__hide {
+  display: none;
+}
+
+#dc__case_studies-section {
+  font-family: "Aleo", Sans-serif;
+}
+
+#dc__case_studies-section .dc__case_studies-header {
+  margin-bottom: -13rem;
+  z-index: 1;
+  position: relative;
+}
+
+#dc__case_studies-section .dc__header-total-members {
+  font-size: 30px;
+  line-height: 40px;
+  font-weight: 500;
+  font-style: italic;
+  text-align: center;
+  color: black;
+  margin: 0;
+}
+
+#dc__case_studies-section .dc__header-country {
+  font-size: 116px;
+  line-height: 120px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--e-global-color-53a42bb);
+  margin: 0;
+}
+
+#dc__case_studies-section .dc__content-loop {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: auto;
+}
+
+/************************************/
+/*******Estilos de los filtros*******/
+/************************************/
+#dc__case_studies-section .dc__sidebar-filter {
+  max-width: 265px;
+}
+
+#dc__case_studies-section .dc__sidebar-title {
+  background-color: #0B1840;
+  color: white;
+  font-size: 30px;
+  line-height: 40px;
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  padding: 14px 18px;
+}
+
+#dc__case_studies-section .dc__sidebar-locations {
+  padding: 0;
+}
+
+#dc__case_studies-section .dc__sidebar-location {
+  background-color: #fff;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 13px 14px;
+}
+
+#dc__case_studies-section .dc__sidebar-location .dc__location-count {
+  background-color: #0B1840;
+  color: white;
+  font-family: "Noto Sans", Sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  max-width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  padding: 1px;
+}
+
+#dc__case_studies-section .dc__sidebar-location .dc__location-title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #0B1840;
+  margin: 0;
+}
+
+#dc__case_studies-section .dc__content-head {
+  margin-bottom: 56px;
+}
+
+#dc__case_studies-section .dc__content-body {
+  margin-top: 68px;
+  width: calc(100% - 289px);
+}
+
+#dc__case_studies-section .dc__content-head .dc__country-select {
+  font-family: "Noto Sans", Sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 22px;
+  padding: 15px 19px;
+  border: solid 1px #9F9F9F;
+  width: 452px;
+  max-width: 100%;
+}
+
+/************************************/
+/*********Estilos del grid***********/
+/************************************/
+#dc__case_studies-section .dc__content-loop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+#dc__case_studies-section .dc__loop-card {
+  padding: 40px 32px;
+  padding-right: 14px;
+  border: solid 1px #E3E3E3;
+  border-top: solid 5px #E3E3E3;
+  background-color: transparent;
+  transition: all .1s ease-in;
+}
+
+#dc__case_studies-section .dc__loop-card:hover {
+  background-color: #fff;
+}
+
+#dc__case_studies-section .dc__loop-card .dc__card-content { 
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+#dc__case_studies-section .dc__loop-card .dc__card-logo {
+  height: 69px;
+  width: auto;
+}
+
+#dc__case_studies-section .dc__loop-card .dc__card-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #0F0E0E;
+  margin: 0;
+}
+
+#dc__case_studies-section .dc__loop-card .dc__card-location {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #1E1E1E;
+  margin: 0;
+}
+
+#dc__case_studies-section .dc__loop-card .dc__card-description {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+  color: #0F0E0E;
+  margin: 0;
+}
+
+#dc__case_studies-section .dc__loop-card .dc__card-link {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+  color: #0F0E0E;
+  margin: 0;
+}
+
+/************************************/
+/*******Estilos del mapa mundi*******/
+/************************************/
 #mapa-mundi g path:hover {
   cursor: pointer;
   /* stroke: black;
@@ -9,11 +193,7 @@
   fill: #0B1840;
 }
 
-.dc__sidebar-location,
+#dc__case_studies-section .dc__sidebar-location,
 #dc-country-select {
   cursor: pointer;
-}
-
-.dc__sidebar-location:not(:first-child) {
-  display: none;
 }
