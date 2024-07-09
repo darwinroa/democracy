@@ -12,6 +12,8 @@ jQuery(document).ready(function($) {
     $('.dc__sidebar-location').removeClass('dc__hide');
     isLoadMore = false;
     dcCaseStudyAjax(slugCountry);
+    dcCountriesAjax('');
+    $('.dc__sidebar-location .dc__location-title').removeClass('active');
   });
 
   $('#mapa-mundi').on('mouseenter', 'g', function() {
