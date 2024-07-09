@@ -30,6 +30,10 @@ jQuery(document).ready(function($) {
   $('#dc-country-select').on('change', function() {
     var slugCountry = $(this).val();
     console.log('País seleccionado desde el select--->', slugCountry);
+    var nameCountry = $(this).find('option:selected').data('countryselect');
+    console.log('Nombre del País seleccionado desde el select --->', nameCountry);    
+    $('#dc__header-country').text(nameCountry);
+    $('#dc__header-total-members').text('Our members in');
     $('g').removeClass('active');
     $('#mapa-mundi #' + slugCountry).addClass('active');
     $('.dc__sidebar-location').removeClass('dc__hide');

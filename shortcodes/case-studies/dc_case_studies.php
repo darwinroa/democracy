@@ -101,7 +101,7 @@ function dc_country_list($isAjax = false, $parentId = '')
   // Imprimir los nombres de las categorías hijas
   if (!empty($child_locations)) {
     foreach ($child_locations as $location) {
-      $html .= "<option value='$location->slug' class='dc__country-option'>$location->name</option>";
+      $html .= "<option value='$location->slug' data-countryselect='$location->name' class='dc__country-option'>$location->name</option>";
     }
   }
   return $html;
@@ -215,39 +215,39 @@ function dc_query_case_studies_loop($args)
 /**
  * Retorna un array donde lista cuantos miembros hay por cada país
  */
-if (!function_exists('dc_country_and_total_members_data_ajax')) {
-  add_action('wp_ajax_nopriv_dc_country_and_total_members_data_ajax', 'dc_country_and_total_members_data_ajax');
-  add_action('wp_ajax_dc_country_and_total_members_data_ajax', 'dc_country_and_total_members_data_ajax');
+// if (!function_exists('dc_country_and_total_members_data_ajax')) {
+//   add_action('wp_ajax_nopriv_dc_country_and_total_members_data_ajax', 'dc_country_and_total_members_data_ajax');
+//   add_action('wp_ajax_dc_country_and_total_members_data_ajax', 'dc_country_and_total_members_data_ajax');
 
-  function dc_country_and_total_members_data_ajax()
-  {
-    check_ajax_referer('load_more_nonce', 'nonce');
-    $data = array();
-    $child_locations = dc_get_locations(false);
-    if (!empty($child_locations)) {
-      foreach ($child_locations as $location) {
-        $dataSlug = $location->slug;
-        $argsCounter = array(
-          'post_type' => 'case_studies',
-          'tax_query'     => array(
-            array(
-              'taxonomy'  => 'locations',
-              'field'     => 'slug',
-              'terms'     => $dataSlug
-            )
-          )
-        );
-        $totalMembers = dc_query_total_case_studies($argsCounter);
-        $data[] = array(
-          'slug' => $dataSlug,
-          'total_members' => $totalMembers
-        );
-      }
-    }
-    wp_send_json_success($data);
-    wp_die();
-  }
-}
+//   function dc_country_and_total_members_data_ajax()
+//   {
+//     check_ajax_referer('load_more_nonce', 'nonce');
+//     $data = array();
+//     $child_locations = dc_get_locations(false);
+//     if (!empty($child_locations)) {
+//       foreach ($child_locations as $location) {
+//         $dataSlug = $location->slug;
+//         $argsCounter = array(
+//           'post_type' => 'case_studies',
+//           'tax_query'     => array(
+//             array(
+//               'taxonomy'  => 'locations',
+//               'field'     => 'slug',
+//               'terms'     => $dataSlug
+//             )
+//           )
+//         );
+//         $totalMembers = dc_query_total_case_studies($argsCounter);
+//         $data[] = array(
+//           'slug' => $dataSlug,
+//           'total_members' => $totalMembers
+//         );
+//       }
+//     }
+//     wp_send_json_success($data);
+//     wp_die();
+//   }
+// }
 
 /**
  * Función Ajax para el grid de casos de estudios
@@ -1021,7 +1021,7 @@ function dc_mapa_mundi_svg()
           c0.1-0.5,0.2-1,0.2-1.5c0.1-0.2,0.2-0.5,0.2-0.9c0.4-1.7,0.8-3.4,1.3-5c1.5-0.1,2.8,1.2,3.7,2c1.8,1.5,3.3,4,4.3,6.2
           c0.1-0.1,0.2-0.2,0.3-0.3C1443.4,856,1444,855.2,1444.6,854.3L1444.6,854.3z"/>
       </g>
-      <g id="australia">
+      <g id="australia-australia" data-country="Australia">
         <path class="st5" d="M2210,1280.5c0.1-0.7,0.4-1.3,0.6-1.9c1.1-3,1-6.3,0.9-9.5c0-0.7-0.1-1.3,0.3-1.8c0.5-0.2,1-0.6,1.4-1.1
           c1.5-1.8,1.5-4.7-0.1-6.5c-0.3,1.3-0.7,2.6-1.2,3.8c-0.3,0.7-0.6,1.4-1.3,1.6c-0.8,0.3-1.6-0.1-2.2-0.8s-0.8-1.4-1.1-2.2
           c-0.9-2-2.4-3.7-3.9-5.3c-1.5-1.7-3.1-3.4-4.6-5c-0.6-0.6-1.2-1.3-1.2-2.2c0-1.5,1.8-2.4,2.5-3.8c0.8-1.5,0-3.5-1.3-4.7
