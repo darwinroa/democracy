@@ -13,3 +13,7 @@
 #dc-country-select {
   cursor: pointer;
 }
+
+.dc__sidebar-location:not(:first-child) {
+  display: none;
+}

@@ -9,6 +9,7 @@ jQuery(document).ready(function($) {
     var countryName = $(this).data('country');
     $('#dc__header-country').text(countryName);
     console.log('se presionó en--->', slugCountry);
+    $('.dc__sidebar-location').show();
     isLoadMore = false;
     dcCaseStudyAjax(slugCountry);
   });
@@ -29,6 +30,7 @@ jQuery(document).ready(function($) {
     console.log('País seleccionado desde el select--->', slugCountry);
     $('g').removeClass('active');
     $('#mapa-mundi #' + slugCountry).addClass('active');
+    $('.dc__sidebar-location').show();
     isLoadMore = false;
     dcCaseStudyAjax(slugCountry);
   });
@@ -37,6 +39,7 @@ jQuery(document).ready(function($) {
     var slugCountry = $(this).data('country');
     var idCountry = $(this).data('countryid');
     $('g').removeClass('active');
+    $('.dc__sidebar-location').show();
     console.log('País seleccionado desde el select--->', slugCountry);
     isLoadMore = false;
     dcCaseStudyAjax(slugCountry);
