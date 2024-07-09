@@ -6,9 +6,22 @@ jQuery(document).ready(function($) {
     var slugCountry = $(this).attr('id');
     $('g').removeClass('active');
     $(this).addClass('active');
+    var countryName = $(this).data('country');
+    $('#dc__header-country').text(countryName);
     console.log('se presionó en--->', slugCountry);
     isLoadMore = false;
     dcCaseStudyAjax(slugCountry);
+  });
+
+  $('#mapa-mundi').on('mouseenter', 'g', function() {
+    var countryName = $(this).data('country');
+    $('#dc__header-country').text(countryName);
+    $('#dc__header-total-members').text('Our members in');
+  });
+
+  $('#mapa-mundi').on('mouseleave', 'g', function() {
+    var countryName = $('g.active').data('country');
+    $('#dc__header-country').text(countryName);
   });
   
   $('#dc-country-select').on('change', function() {
