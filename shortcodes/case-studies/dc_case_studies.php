@@ -213,43 +213,6 @@ function dc_query_case_studies_loop($args)
 }
 
 /**
- * Retorna un array donde lista cuantos miembros hay por cada país
- */
-// if (!function_exists('dc_country_and_total_members_data_ajax')) {
-//   add_action('wp_ajax_nopriv_dc_country_and_total_members_data_ajax', 'dc_country_and_total_members_data_ajax');
-//   add_action('wp_ajax_dc_country_and_total_members_data_ajax', 'dc_country_and_total_members_data_ajax');
-
-//   function dc_country_and_total_members_data_ajax()
-//   {
-//     check_ajax_referer('load_more_nonce', 'nonce');
-//     $data = array();
-//     $child_locations = dc_get_locations(false);
-//     if (!empty($child_locations)) {
-//       foreach ($child_locations as $location) {
-//         $dataSlug = $location->slug;
-//         $argsCounter = array(
-//           'post_type' => 'case_studies',
-//           'tax_query'     => array(
-//             array(
-//               'taxonomy'  => 'locations',
-//               'field'     => 'slug',
-//               'terms'     => $dataSlug
-//             )
-//           )
-//         );
-//         $totalMembers = dc_query_total_case_studies($argsCounter);
-//         $data[] = array(
-//           'slug' => $dataSlug,
-//           'total_members' => $totalMembers
-//         );
-//       }
-//     }
-//     wp_send_json_success($data);
-//     wp_die();
-//   }
-// }
-
-/**
  * Función Ajax para el grid de casos de estudios
  */
 if (!function_exists('dc_case_study_ajax')) {
