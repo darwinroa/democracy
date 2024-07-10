@@ -48,12 +48,19 @@
   
   #dc__case_studies-section .dc__header-total-members {
     font-size: 20px;
+    line-height: 30px;
   }
 
   #dc__case_studies-section .dc__header-country {
     font-size: 65px;
     line-height: 80px;
     min-height: 160px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #dc__case_studies-section .dc__case_studies-header {
+    margin-bottom: -3 rem;
   }
 }
 
