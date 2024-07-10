@@ -1,0 +1,89 @@
+.dc__tab9-content {
+	width: 100%;
+	max-width: 916px;
+	font-family: "Aleo", Sans-serif;
+	font-size: 20px;
+	line-height: 30px;
+	font-weight: 700;
+	font-style: italic;
+	margin: 70px 0;
+}
+
+.content-toggle .filter-top	{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 2rem;
+}
+
+.filter-top .title {
+	font-family: "Noto Sans", Sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 34px; 
+	color: #0F0E0E;
+}
+
+.filter-top .filter-select .custom-select {
+	min-width: 475px;
+	position: relative;
+  display: inline-block;
+	cursor: pointer;
+}
+
+.filter-top .filter-select .select-selected {
+	padding: 11px 14px;
+	background-color: white;
+	border: solid 1px #9F9F9F;
+	font-family: "Noto Sans", Sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 22px;
+	color: #9F9F9F;
+	display: flex;
+	align-items: center; 
+	justify-content: space-between;
+}
+
+.filter-top .filter-select .select-selected::after {
+	content: '';
+	width: 1rem;
+	height: 1rem;
+	background-image: url('http://democracy.local/wp-content/uploads/2024/05/Arrow_down.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	display: inline-block;
+}
+
+.filter-top .filter-select .select-items {
+	position: absolute;
+	width: 100%;
+	background-color: white;
+	z-index: 2;
+}
+
+.filter-select .select-items .select-item {
+	border: solid 1px #9F9F9F;
+	padding: 11px 14px;
+	font-family: "Noto Sans", Sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 22px;
+	color: #0F0E0E;
+}
+
+@media screen and (max-width: 1024px) {
+	.content-toggle .filter-top {
+		flex-wrap: wrap;
+		padding: 0 1rem;
+	}
+	
+	.filter-select,
+	.filter-top .filter-select .custom-select {
+		width: 100%;	
+		min-width: auto;
+	}
+}

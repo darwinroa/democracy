@@ -8,6 +8,8 @@ add_shortcode('filter_select', 'filter_function');
 
 function  filter_function()
 {
+  wp_enqueue_style('dc-tab9-style', get_stylesheet_directory_uri() . '/shortcodes/tab9/dc_tab9.css', array(), '1.0');
+  wp_enqueue_script('dc-tab9-script', get_stylesheet_directory_uri() . '/shortcodes/tab9/dc_tab9.js', array('jquery'), null, true);
   $html = '';
   $content = '';
   $index = 0;
