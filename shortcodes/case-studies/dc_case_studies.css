@@ -1,9 +1,12 @@
+/************************************/
+/*Estilos Principales de la sección**/
+/************************************/
 #dc__case_studies-section {
   font-family: "Aleo", Sans-serif;
 }
 
 #dc__case_studies-section .dc__case_studies-header {
-  margin-bottom: -13rem;
+  margin-bottom: -20rem;
   z-index: 1;
   position: relative;
 }
@@ -24,6 +27,8 @@
   font-weight: 700;
   text-align: center;
   color: var(--e-global-color-53a42bb);
+  min-height: 240px;
+  text-wrap: balance;
   margin: 0;
 }
 
@@ -34,6 +39,22 @@
   width: 100%;
   max-width: var(--content-width);
   margin: auto;
+}
+
+@media screen and (max-width: 1024px) {
+  #dc__case_studies-section .dc__case_studies-header {
+    margin-bottom: -8rem;
+  }
+  
+  #dc__case_studies-section .dc__header-total-members {
+    font-size: 20px;
+  }
+
+  #dc__case_studies-section .dc__header-country {
+    font-size: 65px;
+    line-height: 80px;
+    min-height: 160px;
+  }
 }
 
 /************************************/
@@ -118,6 +139,52 @@
   max-width: 100%;
 }
 
+@media screen and (max-width: 1024px) {
+  #dc__case_studies-section .dc__content-body {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  #dc__case_studies-section .dc__sidebar-filter {
+    width: 100%;
+    max-width: 100%;
+    margin: auto;
+  }
+
+  #dc__case_studies-section .dc__sidebar-locations {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #dc__case_studies-section .dc__sidebar-location {
+    width: 33.3%;
+  }
+  
+  #dc__case_studies-section .dc__sidebar-location:first-child {
+    width: 100%;
+    justify-content: center;
+  }
+
+  #dc__case_studies-section .dc__sidebar-location:first-child .dc__location-title {
+    width: auto;
+  }
+
+  #dc__case_studies-section .dc__content-head {
+    margin-bottom: 24px;
+  }
+
+  #dc__case_studies-section .dc__content-head .dc__country-select {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #dc__case_studies-section .dc__sidebar-location {
+    width: 50%;
+    gap: 9.5px;
+  }
+}
+
 /************************************/
 /*********Estilos del grid***********/
 /************************************/
@@ -149,7 +216,8 @@
 
 #dc__case_studies-section .dc__loop-card .dc__card-logo {
   height: 69px;
-  width: auto;
+  object-fit: contain;
+  object-position: left;
 }
 
 #dc__case_studies-section .dc__loop-card .dc__card-title {
@@ -184,14 +252,25 @@
   margin: 0;
 }
 
+
+@media screen and (max-width: 800px) {
+  #dc__case_studies-section .dc__content-loop-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  #dc__case_studies-section .dc__content-loop-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 /************************************/
 /*******Estilos del mapa mundi*******/
 /************************************/
 #mapa-mundi g path:hover {
   cursor: pointer;
-  /* stroke: black;
-  stroke-width: 3; */
-  fill: #3f59a7;
+  fill: #38208C;
 }
 
 #mapa-mundi g.active path {
