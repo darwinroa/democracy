@@ -43,7 +43,7 @@ if (!function_exists('dc_libraries_function')) {
      * Luego estos argumentos son enviados a la función dc_query_members_loop() 
      * Esta función es la encargada de retornar el loop con los argumentos necesarios
      */
-    $post_per_page = 3;
+    $post_per_page = 9;
     $args = array(
       'post_type' => 'library',
       'posts_per_page' => $post_per_page
@@ -175,7 +175,7 @@ if (!function_exists('dc_library_ajax_filter')) {
         'terms' => intval($topics)
       );
     }
-    $post_per_page = 3;
+    $post_per_page = 9;
     $args = array(
       'post_type' => 'library',
       'posts_per_page' => $post_per_page,
