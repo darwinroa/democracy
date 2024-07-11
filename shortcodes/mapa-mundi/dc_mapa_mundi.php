@@ -3,21 +3,21 @@
 /**
  * Crea el shortcode que imprime el mapa mundi
  * y el filtro por regiones y países
- * [dc_case_studies]
+ * [dc_mapa_mundi]
  */
-if (!function_exists('dc_case_studies_function')) {
-  add_shortcode('dc_case_studies', 'dc_case_studies_function');
-  function dc_case_studies_function()
+if (!function_exists('dc_mapa_mundi_function')) {
+  add_shortcode('dc_mapa_mundi', 'dc_mapa_mundi_function');
+  function dc_mapa_mundi_function()
   {
-    wp_enqueue_style('dc-case-studies-style', get_stylesheet_directory_uri() . '/shortcodes/case-studies/dc_case_studies.css', array(), '1.0');
-    wp_enqueue_script('dc-case-studies-script', get_stylesheet_directory_uri() . '/shortcodes/case-studies/dc_case_studies.js', array('jquery'), null, true);
-    wp_localize_script('dc-case-studies-script', 'wp_ajax', array(
+    wp_enqueue_style('dc-mapa-mundi-style', get_stylesheet_directory_uri() . '/shortcodes/mapa-mundi/dc_mapa_mundi.css', array(), '1.0');
+    wp_enqueue_script('dc-mapa-mundi-script', get_stylesheet_directory_uri() . '/shortcodes/mapa-mundi/dc_mapa_mundi.js', array('jquery'), null, true);
+    wp_localize_script('dc-mapa-mundi-script', 'wp_ajax', array(
       'ajax_url'            => admin_url('admin-ajax.php'),
       'nonce'               => wp_create_nonce('load_more_nonce'),
       'theme_directory_uri' => get_stylesheet_directory_uri(),
     ));
     $args = array(
-      'post_type' => 'case_studies',
+      'post_type' => 'our_reach',
     );
     $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
     $mapaImg = dc_mapa_mundi_svg(); // Retorna el SVG del mapa mundi
@@ -73,7 +73,7 @@ function dc_sidebar_location_list()
     foreach ($parent_locations as $location) {
       $html .= "";
       $args = array(
-        'post_type' => 'case_studies',
+        'post_type' => 'our_reach',
         'tax_query'     => array(
           array(
             'taxonomy'  => 'locations',
@@ -241,13 +241,13 @@ if (!function_exists('dc_case_study_ajax')) {
 
     $slugCountry ?
       $args = array(
-        'post_type' => 'case_studies',
+        'post_type' => 'our_reach',
         'posts_per_page' => $post_per_page,
         'tax_query' => $tax_query,
         'paged' => $page,
       ) :
       $args = array(
-        'post_type' => 'case_studies',
+        'post_type' => 'our_reach',
         'posts_per_page' => $post_per_page,
         'paged' => $page,
       );

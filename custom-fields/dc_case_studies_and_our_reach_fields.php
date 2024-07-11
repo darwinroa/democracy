@@ -3,7 +3,7 @@ if (function_exists('acf_add_local_field_group')) :
 
   acf_add_local_field_group(array(
     'key' => 'group_6685a9cbf2de9',
-    'title' => 'Case Studies',
+    'title' => 'Case Studies - Our Reach',
     'fields' => array(
       array(
         'key' => 'field_6685a9de6116a',
@@ -47,6 +47,13 @@ if (function_exists('acf_add_local_field_group')) :
           'param' => 'post_type',
           'operator' => '==',
           'value' => 'case_studies',
+        ),
+      ),
+      array(
+        array(
+          'param' => 'post_type',
+          'operator' => '==',
+          'value' => 'our_reach',
         ),
       ),
     ),

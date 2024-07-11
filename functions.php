@@ -43,7 +43,7 @@ require 'shortcodes/members/dc_members.php'; // Members filter shortcode
 require 'shortcodes/library/dc_library.php'; // Libraries filter shortcode
 require 'shortcodes/team/dc_team.php'; // Team Pop Up shortcode
 require 'shortcodes/tab9/dc_tab9.php'; // Tab 9 shortcode for the Deliberation on Difficult Issues page
-require 'shortcodes/case-studies/dc_case_studies.php'; // Case Studies shortocode
+require 'shortcodes/mapa-mundi/dc_mapa_mundi.php'; // Case Studies shortocode
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////UTILIDADES GENRALES/////////////////////////////
@@ -55,7 +55,7 @@ require 'utilities/dc_utilities.php'; // Utilities functions
 ///////////////////////////////////////////////////////////////////////
 ////////////////////////////Post Types/////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-// require 'post-types/dc_case_study.php'; // Case Stydies
+require 'post-types/dc_case_study.php'; // Case Stydies
 require 'post-types/dc_our_reach.php'; // our Reach
 
 ///////////////////////////////////////////////////////////////////////
@@ -66,4 +66,4 @@ require 'taxonomies/dc_locations.php'; // Case Stydies
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////Custom Fields///////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-require 'custom-fields/dc_case_studies_fields.php'; // Case Stydies
+require 'custom-fields/dc_case_studies_and_our_reach_fields.php'; // Case Stydies
