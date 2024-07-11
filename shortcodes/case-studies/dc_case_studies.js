@@ -4,64 +4,75 @@ jQuery(document).ready(function($) {
    */
   var page = 1; // Inicializando el paginado
   var isLoadMore = false;
+  /**
+   * Se activa al dar clic en cualquier país del mapa
+   */
   $('#mapa-mundi').on('click', 'g', function() {
+    var slugCountry = $(this).attr('id'); // Obtiene el slug del país contenido en el id del país en el mapa
+    var countryName = $(this).data('country'); // Obtiene el nombre del país en el hover para poder mostrar en el título del mapa
     page = 1; // Inicializando el paginado
     isLoadMore = false;
-    var slugCountry = $(this).attr('id');
-    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry);
+    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry); // Agrega un data-country con el valor del slug del país para cargar más
     $('g').removeClass('active');
     $(this).addClass('active');
-    var countryName = $(this).data('country');
-    $('#dc__header-country').text(countryName);
-    console.log('se presionó en--->', slugCountry);
+    $('#dc__header-country').text(countryName); // Agrega el nombre del país en el título del mapa
     $('.dc__sidebar-location').removeClass('dc__hide');
-    dcCaseStudyAjax(slugCountry);
-    dcCountriesAjax('');
+    dcCaseStudyAjax(slugCountry); // Función que imprime el loop de la consulta ajax al seleccionar un país en el mapa
+    dcCountriesAjax(''); // Ejecuta la consulta para agregar los países en el select
     $('.dc__sidebar-location .dc__location-title').removeClass('active');
   });
 
+  /**
+   * Se activa al posicionar el cursor sobre un país en el mapa
+   * Actualiza el título del mapa con el nombre del país donde estoy en hover
+   */
   $('#mapa-mundi').on('mouseenter', 'g', function() {
     var countryName = $(this).data('country');
     $('#dc__header-country').text(countryName);
     $('#dc__header-total-members').text('Our members in');
   });
 
+  /**
+   * Se activa al retirar el cursor sobre un país en el mapa
+   * Actualiza el título del mapa con el nombre del país que está activo, si es que hay un país activado
+   */
   $('#mapa-mundi').on('mouseleave', 'g', function() {
     var countryName = $('g.active').data('country');
     $('#dc__header-country').text(countryName);
   });
   
+  /**
+   * Se activa al elegir un país en el select
+   */
   $('#dc-country-select').on('change', function() {
+    var slugCountry = $(this).val();
+    var nameCountry = $(this).find('option:selected').data('countryselect'); // Actualiza el título con el nombre del país seleccionado  
     page = 1; // Inicializando el paginado
     isLoadMore = false;
-    var slugCountry = $(this).val();
-    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry);
-    console.log('País seleccionado desde el select--->', slugCountry);
-    var nameCountry = $(this).find('option:selected').data('countryselect');
-    console.log('Nombre del País seleccionado desde el select --->', nameCountry);    
+    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry); // Actualiza el data-country del botón de cargar más
     $('#dc__header-country').text(nameCountry);
     $('#dc__header-total-members').text('Our members in');
     $('g').removeClass('active');
     $('#mapa-mundi #' + slugCountry).addClass('active');
     $('.dc__sidebar-location').removeClass('dc__hide');
-    isLoadMore = false;
-    dcCaseStudyAjax(slugCountry);
+    dcCaseStudyAjax(slugCountry); // Función que imprime el loop de la consulta ajax al seleccionar un país en el select
   });
 
+  /**
+   * Se activa al elegir una región en el sidebar
+   */
   $('.dc__sidebar-filter .dc__sidebar-location').on('click', '.dc__location-title', function() {
-    page = 1; // Inicializando el paginado
-    isLoadMore = false;
     var slugCountry = $(this).data('country');
     var idCountry = $(this).data('countryid');
+    page = 1; // Inicializando el paginado
+    isLoadMore = false;
     $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry);
     $('.dc__sidebar-location .dc__location-title').removeClass('active');
     $(this).addClass('active');
     $('g').removeClass('active');
     $('.dc__sidebar-location').removeClass('dc__hide');
-    console.log('País seleccionado desde el select--->', slugCountry);
-    isLoadMore = false;
-    dcCaseStudyAjax(slugCountry);
-    dcCountriesAjax(idCountry);
+    dcCaseStudyAjax(slugCountry);  // Función que imprime el loop de la consulta ajax al seleccionar una región en el sideabr
+    dcCountriesAjax(idCountry);  // Ejecuta la consulta para agregar los países en el select relacionados a la región seleccionada en el sidebar
   })  
 
   // Esto se ejecuta cuando se presiona sobre el botón de Load More
@@ -72,9 +83,12 @@ jQuery(document).ready(function($) {
     isLoadMore = true;
     var slugCountry = $(this).attr('data-country');
     console.log('valor de country del boton-->', slugCountry);
-    dcCaseStudyAjax (slugCountry, page);
+    dcCaseStudyAjax(slugCountry, page); // Función que imprime el loop de la consulta ajax al presionar en cargar más
   })
 
+  /**
+   * Función Ajax que retorna el la consulta de posts y los agrega en el html con clase .dc__content-loop-grid
+   */
   function dcCaseStudyAjax (slugCountry, page = 1) {
     $.ajax({
       url: wp_ajax.ajax_url,
@@ -107,6 +121,9 @@ jQuery(document).ready(function($) {
     })
   }
 
+  /**
+   * Función que imprime las opciones del select con id #dc-country-select
+   */
   function dcCountriesAjax(idCountry) {
     $.ajax({
       url: wp_ajax.ajax_url,
