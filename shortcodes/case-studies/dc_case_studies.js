@@ -2,15 +2,19 @@ jQuery(document).ready(function($) {
   /**
    * Se activa luego de presionar sobre cualquier país del mapa
    */
+  var page = 1; // Inicializando el paginado
+  var isLoadMore = false;
   $('#mapa-mundi').on('click', 'g', function() {
+    page = 1; // Inicializando el paginado
+    isLoadMore = false;
     var slugCountry = $(this).attr('id');
+    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry);
     $('g').removeClass('active');
     $(this).addClass('active');
     var countryName = $(this).data('country');
     $('#dc__header-country').text(countryName);
     console.log('se presionó en--->', slugCountry);
     $('.dc__sidebar-location').removeClass('dc__hide');
-    isLoadMore = false;
     dcCaseStudyAjax(slugCountry);
     dcCountriesAjax('');
     $('.dc__sidebar-location .dc__location-title').removeClass('active');
@@ -28,7 +32,10 @@ jQuery(document).ready(function($) {
   });
   
   $('#dc-country-select').on('change', function() {
+    page = 1; // Inicializando el paginado
+    isLoadMore = false;
     var slugCountry = $(this).val();
+    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry);
     console.log('País seleccionado desde el select--->', slugCountry);
     var nameCountry = $(this).find('option:selected').data('countryselect');
     console.log('Nombre del País seleccionado desde el select --->', nameCountry);    
@@ -42,8 +49,11 @@ jQuery(document).ready(function($) {
   });
 
   $('.dc__sidebar-filter .dc__sidebar-location').on('click', '.dc__location-title', function() {
+    page = 1; // Inicializando el paginado
+    isLoadMore = false;
     var slugCountry = $(this).data('country');
     var idCountry = $(this).data('countryid');
+    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry);
     $('.dc__sidebar-location .dc__location-title').removeClass('active');
     $(this).addClass('active');
     $('g').removeClass('active');
@@ -52,16 +62,28 @@ jQuery(document).ready(function($) {
     isLoadMore = false;
     dcCaseStudyAjax(slugCountry);
     dcCountriesAjax(idCountry);
+  })  
+
+  // Esto se ejecuta cuando se presiona sobre el botón de Load More
+  // Realizando una petición de más post.
+  // Considerando también los datos seleccionados para el filtro
+  $('#dc__button-loadmore-members-countries').on('click', function() {
+    page++;
+    isLoadMore = true;
+    var slugCountry = $(this).attr('data-country');
+    console.log('valor de country del boton-->', slugCountry);
+    dcCaseStudyAjax (slugCountry, page);
   })
 
-  function dcCaseStudyAjax (slugCountry) {
+  function dcCaseStudyAjax (slugCountry, page = 1) {
     $.ajax({
       url: wp_ajax.ajax_url,
       type: 'post',
       data: {
         action: 'dc_case_study_ajax',
         nonce: wp_ajax.nonce,
-        slugCountry
+        slugCountry,
+        page
       },
       beforeSend: function(){
         const loaderUrl = wp_ajax.theme_directory_uri + '/inc/img/ri-preloader.svg';

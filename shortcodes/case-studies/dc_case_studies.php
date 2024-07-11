@@ -23,6 +23,8 @@ if (!function_exists('dc_case_studies_function')) {
     $mapaImg = dc_mapa_mundi_svg(); // Retorna el SVG del mapa mundi
     $sidebarLocationList = dc_sidebar_location_list(); // Retorna el listado de regiones que irá en el sidebar
     $countryOptions = dc_country_list(); // Retorna el listado de Paises que irán en el select
+    $button_ID = 'loadmore-members-countries';
+    $buttonLoadMore = dc_html_loadmore_button($button_ID);
     ob_start();
     $html = '';
     $html .= "
@@ -50,6 +52,7 @@ if (!function_exists('dc_case_studies_function')) {
               </select>
             </div>
             <div class='dc__content-loop-grid'></div>
+            $buttonLoadMore
           </div>
         </div>
       </div>
@@ -223,6 +226,7 @@ if (!function_exists('dc_case_study_ajax')) {
   {
     check_ajax_referer('load_more_nonce', 'nonce');
     $slugCountry = isset($_POST['slugCountry']) ? sanitize_text_field($_POST['slugCountry']) : false;
+    $page = $_POST['page'];
 
     /**
      * Construyendo los argumentos necesarios para el Query
@@ -233,17 +237,19 @@ if (!function_exists('dc_case_study_ajax')) {
       'field' => 'slug',
       'terms' => $slugCountry,
     );
-    $post_per_page = 6;
+    $post_per_page = 1;
 
     $slugCountry ?
       $args = array(
         'post_type' => 'case_studies',
         'posts_per_page' => $post_per_page,
         'tax_query' => $tax_query,
+        'paged' => $page,
       ) :
       $args = array(
         'post_type' => 'case_studies',
         'posts_per_page' => $post_per_page,
+        'paged' => $page,
       );
     $query_loop = dc_query_case_studies_loop($args);
     $html = $query_loop;
@@ -1562,8 +1568,6 @@ function dc_mapa_mundi_svg()
           c4.4-1.1,8.5-2.7,13-3.2c-4.7-7.6-4.3-8.8-3.5-17.6c0,0.1-1.3-0.3-2.4-0.6c6-3,10.9-7.8,17-10.7C719.6,785.7,720.2,780.3,719.5,775
           z"/>
       </g>
-      <image style="overflow:visible;" width="858" height="835" xlink:href="../Desktop/Captura de Pantalla 2024-07-08 a la(s) 5.45.44 p. m..png"  transform="matrix(0.2606 0 0 0.2715 96.2108 1998.2255)">
-      </image>
     </svg>
   ';
 }
