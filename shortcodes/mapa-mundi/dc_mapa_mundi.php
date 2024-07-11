@@ -120,7 +120,7 @@ function dc_get_locations($isParent)
   // Argumentos para obtener términos de la taxonomía 'locations'
   $args = array(
     'taxonomy'   => 'locations',
-    'hide_empty' => false,
+    'hide_empty' => true,
     'parent'     => 0, // Solo términos padres
   );
 
@@ -151,7 +151,7 @@ function dc_get_child_locations($parentId)
 {
   $child_args = array(
     'taxonomy'   => 'locations',
-    'hide_empty' => false,
+    'hide_empty' => true,
     'parent'     => $parentId, // Solo términos hijos de este padre
   );
 
