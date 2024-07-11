@@ -4,6 +4,7 @@ jQuery(document).ready(function($) {
    */
   var page = 1; // Inicializando el paginado
   var isLoadMore = false;
+  var loadMoreButon = $('#dc__button-loadmore-members-countries');
   /**
    * Se activa al dar clic en cualquier país del mapa
    */
@@ -12,7 +13,8 @@ jQuery(document).ready(function($) {
     var countryName = $(this).data('country'); // Obtiene el nombre del país en el hover para poder mostrar en el título del mapa
     page = 1; // Inicializando el paginado
     isLoadMore = false;
-    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry); // Agrega un data-country con el valor del slug del país para cargar más
+    loadMoreButon.show();
+    loadMoreButon.attr('data-country', slugCountry); // Agrega un data-country con el valor del slug del país para cargar más
     $('g').removeClass('active');
     $(this).addClass('active');
     $('#dc__header-country').text(countryName); // Agrega el nombre del país en el título del mapa
@@ -49,7 +51,8 @@ jQuery(document).ready(function($) {
     var nameCountry = $(this).find('option:selected').data('countryselect'); // Actualiza el título con el nombre del país seleccionado  
     page = 1; // Inicializando el paginado
     isLoadMore = false;
-    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry); // Actualiza el data-country del botón de cargar más
+    loadMoreButon.show();
+    loadMoreButon.attr('data-country', slugCountry); // Actualiza el data-country del botón de cargar más
     $('#dc__header-country').text(nameCountry);
     $('#dc__header-total-members').text('Our members in');
     $('g').removeClass('active');
@@ -66,7 +69,8 @@ jQuery(document).ready(function($) {
     var idCountry = $(this).data('countryid');
     page = 1; // Inicializando el paginado
     isLoadMore = false;
-    $('#dc__button-loadmore-members-countries').attr('data-country', slugCountry);
+    loadMoreButon.show();
+    loadMoreButon.attr('data-country', slugCountry);
     $('.dc__sidebar-location .dc__location-title').removeClass('active');
     $(this).addClass('active');
     $('g').removeClass('active');
