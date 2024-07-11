@@ -100,6 +100,7 @@ jQuery(document).ready(function($) {
       data: {
         action: 'dc_case_study_ajax',
         nonce: wp_ajax.nonce,
+        postType: wp_ajax.post_type,
         slugCountry,
         page
       },

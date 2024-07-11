@@ -7,24 +7,36 @@
  */
 if (!function_exists('dc_mapa_mundi_function')) {
   add_shortcode('dc_mapa_mundi', 'dc_mapa_mundi_function');
-  function dc_mapa_mundi_function()
+  function dc_mapa_mundi_function($atts)
   {
+    // Los atributos aceptados y sus valores predeterminados
+    $attributes = shortcode_atts(
+      array(
+        'post_type'  => 'our_reach',
+      ),
+      $atts
+    );
+
+    $post_type = $attributes['post_type'];
     wp_enqueue_style('dc-mapa-mundi-style', get_stylesheet_directory_uri() . '/shortcodes/mapa-mundi/dc_mapa_mundi.css', array(), '1.0');
     wp_enqueue_script('dc-mapa-mundi-script', get_stylesheet_directory_uri() . '/shortcodes/mapa-mundi/dc_mapa_mundi.js', array('jquery'), null, true);
     wp_localize_script('dc-mapa-mundi-script', 'wp_ajax', array(
       'ajax_url'            => admin_url('admin-ajax.php'),
       'nonce'               => wp_create_nonce('load_more_nonce'),
       'theme_directory_uri' => get_stylesheet_directory_uri(),
+      'post_type'           => $post_type,
     ));
+
     $args = array(
-      'post_type' => 'our_reach',
+      'post_type' => $post_type,
     );
     $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
     $mapaImg = dc_mapa_mundi_svg(); // Retorna el SVG del mapa mundi
-    $sidebarLocationList = dc_sidebar_location_list(); // Retorna el listado de regiones que irá en el sidebar
+    $sidebarLocationList = dc_sidebar_location_list($post_type); // Retorna el listado de regiones que irá en el sidebar
     $countryOptions = dc_country_list(); // Retorna el listado de Paises que irán en el select
     $button_ID = 'loadmore-members-countries';
     $buttonLoadMore = dc_html_loadmore_button($button_ID);
+    $sidebarTitle = $post_type === 'our_reach' ? 'Global members' : 'Global Case Studies';
     ob_start();
     $html = '';
     $html .= "
@@ -36,7 +48,7 @@ if (!function_exists('dc_mapa_mundi_function')) {
         $mapaImg
         <div class='dc__content-loop'>
           <div class='dc__sidebar-filter'>
-            <div class='dc__sidebar-title'>Global members</div>
+            <div class='dc__sidebar-title'>$sidebarTitle</div>
             <ul class='dc__sidebar-locations'>
               <li class='dc__sidebar-location'>
                 <span class='dc__location-count'>$totalPost</span>
@@ -64,7 +76,7 @@ if (!function_exists('dc_mapa_mundi_function')) {
 /**
  * Retorna el listado de regiones que irá en el sidebar
  */
-function dc_sidebar_location_list()
+function dc_sidebar_location_list($post_type)
 {
   $isParent = true;
   $parent_locations = dc_get_locations($isParent); // Retorna las localizaciones padres.
@@ -73,7 +85,7 @@ function dc_sidebar_location_list()
     foreach ($parent_locations as $location) {
       $html .= "";
       $args = array(
-        'post_type' => 'our_reach',
+        'post_type' => $post_type,
         'tax_query'     => array(
           array(
             'taxonomy'  => 'locations',
@@ -226,6 +238,7 @@ if (!function_exists('dc_case_study_ajax')) {
   {
     check_ajax_referer('load_more_nonce', 'nonce');
     $slugCountry = isset($_POST['slugCountry']) ? sanitize_text_field($_POST['slugCountry']) : false;
+    $postType = sanitize_text_field($_POST['postType']);
     $page = $_POST['page'];
 
     /**
@@ -241,13 +254,13 @@ if (!function_exists('dc_case_study_ajax')) {
 
     $slugCountry ?
       $args = array(
-        'post_type' => 'our_reach',
+        'post_type' => $postType,
         'posts_per_page' => $post_per_page,
         'tax_query' => $tax_query,
         'paged' => $page,
       ) :
       $args = array(
-        'post_type' => 'our_reach',
+        'post_type' => $postType,
         'posts_per_page' => $post_per_page,
         'paged' => $page,
       );
