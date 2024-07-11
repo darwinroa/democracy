@@ -237,7 +237,7 @@ if (!function_exists('dc_case_study_ajax')) {
       'field' => 'slug',
       'terms' => $slugCountry,
     );
-    $post_per_page = 1;
+    $post_per_page = 9;
 
     $slugCountry ?
       $args = array(
