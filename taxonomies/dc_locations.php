@@ -33,6 +33,6 @@ function cptui_register_my_taxes_locations()
     "sort" => false,
     "show_in_graphql" => false,
   ];
-  register_taxonomy("locations", ["case_studies"], $args);
+  register_taxonomy("locations", ["case_studies", "our_reach"], $args);
 }
 add_action('init', 'cptui_register_my_taxes_locations');
