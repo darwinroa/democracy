@@ -31,7 +31,7 @@ if (!function_exists('dc_mapa_mundi_function')) {
       'post_type' => $post_type,
     );
     $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
-    $mapaImg = dc_mapa_mundi_svg(); // Retorna el SVG del mapa mundi
+    $mapaImg = dc_mapa_mundi_svg($post_type); // Retorna el SVG del mapa mundi
     $sidebarLocationList = dc_sidebar_location_list($post_type); // Retorna el listado de regiones que irá en el sidebar
     $countryOptions = dc_country_list(); // Retorna el listado de Paises que irán en el select
     $button_ID = 'loadmore-members-countries';
@@ -297,10 +297,10 @@ if (!function_exists('dc_options_countries_ajax')) {
 /**
  * Retorna el SVG del mapa mundi
  */
-function dc_mapa_mundi_svg()
+function dc_mapa_mundi_svg($post_type)
 {
   // Ruta del archivo SVG
-  $svgFile = get_stylesheet_directory_uri() . '/inc/img/mapa-mundi-our_reach.svg';
+  $svgFile = get_stylesheet_directory_uri() . '/inc/img/mapa-mundi-' . $post_type . '.svg';
 
   $svgContent = file_get_contents($svgFile);
 
