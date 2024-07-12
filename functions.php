@@ -44,6 +44,7 @@ require 'shortcodes/library/dc_library.php'; // Libraries filter shortcode
 require 'shortcodes/team/dc_team.php'; // Team Pop Up shortcode
 require 'shortcodes/tab9/dc_tab9.php'; // Tab 9 shortcode for the Deliberation on Difficult Issues page
 require 'shortcodes/mapa-mundi/dc_mapa_mundi.php'; // Mapa mundi shortocode
+require 'shortcodes/accordion/dc_accordion.php'; // Accordion
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////UTILIDADES GENRALES/////////////////////////////

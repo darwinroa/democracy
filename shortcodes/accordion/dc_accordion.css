@@ -1,0 +1,92 @@
+
+
+.trem-team{
+  display: flex;
+  width: 100%;
+}
+.trem-team__item{
+  width: calc(15%);
+  padding: 2px;
+  box-sizing: border-box;
+  transition: .5s ease-in-out;
+}
+.trem-team__item.active{
+  width: 70%;
+}
+.trem-team__item.active .trem-team__item__fig__caption{
+  opacity: 1;
+}
+.active .trem-team__item__fig img{
+	max-width: 50%;
+}
+.trem-team__item.active .trem-team__item__fig__text{
+	display: none;
+}
+.trem-team__item__fig__text{
+	position: absolute;
+    bottom: 20px;
+    left: 30px;
+    text-align: center;
+	z-index: 3;
+	color: white;
+}
+.trem-team__item__fig__text h2{
+	color: white;
+    font-family: "Avenir Next Bold", Sans-serif !important;
+    font-size: 27px;
+    margin: 0px;
+}
+.trem-team__item__fig__text span{
+	color: white;
+    font-family: "Avenir Next Regular", sans-serif !important;
+    font-size: 16px;
+	text-transform: uppercase;
+}
+.trem-team__item__fig{
+  margin: 0;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  height: 600px;
+  background-color: blue;
+}
+.trem-team__item__fig__caption__name{
+	font-family: "Avenir Next Bold", Sans-serif !important;
+    font-size: 25px;
+	font-style: normal;
+}
+.trem-team__item__fig__caption__desc{
+	font-family: "Avenir Next Regular", sans-serif !important;
+    font-size: 14px;
+	line-height: 16.5px;
+	font-style: normal;
+}
+.trem-team__item__fig::before{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(224, 36, 32, 0.4);
+  left: 0;
+  top: 0;
+  z-index: 3;
+  transition: .5s
+}
+.trem-team__item.active .trem-team__item__fig::before{
+  width: 0;
+}
+.trem-team__item__fig__caption{
+  padding: 30px;
+  box-sizing: border-box;
+  height: 600px;
+  overflow-y: scroll;
+  background-color: white;
+  opacity: 0;
+  transition: opacity 1.5s ease-in;
+}
+.trem-team__item__fig__img{
+  width: 100%;
+  height: 600px;
+  object-fit: cover;
+  object-position: 25% top;
+}
