@@ -46,13 +46,6 @@ if (function_exists('acf_add_local_field_group')) :
         array(
           'param' => 'post_type',
           'operator' => '==',
-          'value' => 'case_studies',
-        ),
-      ),
-      array(
-        array(
-          'param' => 'post_type',
-          'operator' => '==',
           'value' => 'our_reach',
         ),
       ),
