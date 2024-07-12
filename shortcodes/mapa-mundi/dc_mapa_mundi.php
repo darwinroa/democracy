@@ -190,13 +190,12 @@ function dc_query_total_case_studies($args)
 function dc_query_case_studies_loop($args)
 {
   $query = new WP_Query($args);
+  $post_type = $args['post_type'];
   $html = "";
   if ($query->have_posts()) :
     ob_start();
     while ($query->have_posts()) : $query->the_post();
       $title = get_the_title();
-      $linkText = get_field('case_study_text_link');
-      $url = get_field('case_study_link_web');
       $description = get_the_content();
       $term = get_the_terms(get_the_ID(), 'locations');
       $location = esc_html($term[0]->name);
@@ -209,6 +208,18 @@ function dc_query_case_studies_loop($args)
           'height'  => 300,
         )
       );
+      // Genera el HTML de los links dependiendo del post type
+      if ($post_type === 'our_reach') {
+        $linkText = get_field('case_study_text_link');
+        $url = get_field('case_study_link_web');
+        $html_links = "<a href='$url' target='_blank' rel='noopener noreferrer' class='dc__card-link'>$linkText</a>";
+      } else {
+        $urlDownload = get_field('pdf_case_studies');
+        $urlMoreInformation = get_field('more_information_link_case_studies');
+        $html_links = $urlDownload ? "<a href='$urlDownload' target='_blank' rel='noopener noreferrer' class='dc__card-link'>Download</a>" : '';
+        $html_links .= $urlMoreInformation ? "<a href='$urlMoreInformation' target='_blank' rel='noopener noreferrer' class='dc__card-link'>View more</a>" : '';
+      }
+
       $html .= "
       <div class='dc__loop-card'>
         <div class='dc__card-content'>
@@ -216,7 +227,9 @@ function dc_query_case_studies_loop($args)
           <h3 class='dc__card-title'>$title</h3>
           <div class='dc__card-location'>$location</div>
           <p class='dc__card-description'>$description</p>
-          <a href='$url' target='_blank' rel='noopener noreferrer' class='dc__card-link'>$linkText</a>
+          <div class='dc__card-links'>
+            $html_links
+          </div>
         </div>
       </div>";
     endwhile;

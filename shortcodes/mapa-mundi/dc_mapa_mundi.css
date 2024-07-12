@@ -76,13 +76,13 @@
 }
 
 #dc__case_studies-section .dc__sidebar-filter {
-  max-width: 265px;
+  width: 265px;
 }
 
 #dc__case_studies-section .dc__sidebar-title {
   background-color: #0B1840;
   color: white;
-  font-size: 30px;
+  font-size: 24px;
   line-height: 40px;
   font-weight: 700;
   font-style: italic;
@@ -253,6 +253,11 @@
   line-height: 32px;
   color: #0F0E0E;
   margin: 0;
+}
+
+#dc__case_studies-section .dc__loop-card .dc__card-links {
+  display: flex;
+  gap: 10px;
 }
 
 #dc__case_studies-section .dc__loop-card .dc__card-link {
