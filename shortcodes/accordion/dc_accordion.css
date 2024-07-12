@@ -4,7 +4,6 @@
 }
 .trem-team__item{
   width: 90px;
-  padding: 2px;
   box-sizing: border-box;
   transition: .5s ease-in-out;
 }
@@ -16,7 +15,7 @@
   width: calc(100% - 90px);
   margin-left: auto;
 }
-.active .trem-team__item__fig img{
+.active .trem-team__item__tab img{
 	max-width: 50%;
 }
 .trem-team__item.active .trem-team__item__text{
@@ -45,13 +44,21 @@
   font-weight: 400;
   color: white;
 }
-.trem-team__item__fig{
+.trem-team__item__tab{
   margin: 0;
   display: flex;
   overflow: hidden;
   position: relative;
   height: 600px;
-  background-color: blue;
+}
+.trem-team__item:nth-child(n+1) .trem-team__item__tab{
+  background-color: #452D9D;
+}
+.trem-team__item:nth-child(n+2) .trem-team__item__tab{
+  background-color: #7774ED;
+}
+.trem-team__item:nth-child(n+3) .trem-team__item__tab{
+  background-color: #3BAFD4;
 }
 .trem-team__item__fig__caption__name{
 	font-family: "Avenir Next Bold", Sans-serif !important;
