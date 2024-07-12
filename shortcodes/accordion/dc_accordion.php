@@ -43,11 +43,11 @@ function dc_get_protocol_step_html($protocolStep, $isActive)
   $html = "
     <div class='trem-team__item $classActive'>
       <div class='trem-team__item__fig'>
-        <div class='trem-team__item__fig__text'>
+        <div class='team__item__text'>
           <div class='dc__accordeon_step-letter'>$letterStep</div>
           <div class='dc__accordion_step-title'>$titleStep</div>
         </div>
-        <div class='trem-team__item__fig__caption'>
+        <div class='trem-team__item__content'>
           $templateStep
         </div>
       </div>
