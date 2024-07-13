@@ -7,14 +7,17 @@ function dc_accordion_function($atts)
   $attributes = shortcode_atts(
     array(
       'step'  => '00',
+      'type'  => 'snl',
     ),
     $atts
   );
 
   wp_enqueue_style('dc-accordion-style', get_stylesheet_directory_uri() . '/shortcodes/accordion/dc_accordion.css', array(), '1.0');
   wp_enqueue_script('dc-accordion-script', get_stylesheet_directory_uri() . '/shortcodes/accordion/dc_accordion.js', array('jquery'), null, true);
-  $allSteps = get_field('steps_snl');
+  $typeStep = $attributes['type'];
   $numberStep = intval($attributes['step']);
+  $field = 'steps_' . $typeStep;
+  $allSteps = get_field($field);
   $protocolSteps = $allSteps[$numberStep]['protocol_steps'];
 
   ob_start();

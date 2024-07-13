@@ -126,7 +126,7 @@ if (function_exists('acf_add_local_field_group')) :
       array(
         'key' => 'field_6691b8794c282',
         'label' => 'Steps - Ritual for South-South Learning (SSL)',
-        'name' => 'steps_ssL',
+        'name' => 'steps_ssl',
         'type' => 'repeater',
         'instructions' => '',
         'required' => 0,

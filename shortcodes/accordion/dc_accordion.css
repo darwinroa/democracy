@@ -8,7 +8,7 @@
   transition: .5s ease-in-out;
 }
 .trem-team__item.active{
-  width: 70%;
+  width: 100%;
 }
 .trem-team__item.active .trem-team__item__content{
   opacity: 1;
@@ -49,15 +49,14 @@
   display: flex;
   overflow: hidden;
   position: relative;
-  height: 600px;
 }
-.trem-team__item:nth-child(n+1) .trem-team__item__tab{
+.trem-team__item:nth-child(3n+1) .trem-team__item__tab{
   background-color: #452D9D;
 }
-.trem-team__item:nth-child(n+2) .trem-team__item__tab{
+.trem-team__item:nth-child(3n+2) .trem-team__item__tab{
   background-color: #7774ED;
 }
-.trem-team__item:nth-child(n+3) .trem-team__item__tab{
+.trem-team__item:nth-child(3n+3) .trem-team__item__tab{
   background-color: #3BAFD4;
 }
 .trem-team__item__fig__caption__name{
@@ -74,10 +73,4 @@
 .trem-team__item__content{
   box-sizing: border-box;
   opacity: 0;
-}
-.trem-team__item__fig__img{
-  width: 100%;
-  height: 600px;
-  object-fit: cover;
-  object-position: 25% top;
 }
