@@ -14,6 +14,7 @@
   opacity: 1;
   width: calc(100% - 90px);
   margin-left: auto;
+  overflow: auto;
 }
 .active .trem-team__item__tab img{
 	max-width: 50%;
@@ -49,6 +50,7 @@
   display: flex;
   overflow: hidden;
   position: relative;
+  height: 80vh;
 }
 .trem-team__item:nth-child(3n+1) .trem-team__item__tab{
   background-color: #452D9D;
@@ -73,4 +75,21 @@
 .trem-team__item__content{
   box-sizing: border-box;
   opacity: 0;
+}
+
+/*Estilos al scroll*/
+/* Estilos para la barra de scroll */
+.trem-team__item .trem-team__item__content::-webkit-scrollbar {
+  width: 2px; /* Ancho de la barra de scroll */
+}
+
+/* Cambiar el color de la barra */
+.trem-team__item .trem-team__item__content::-webkit-scrollbar-thumb {
+  background-color: #8585853b;
+  border-radius: 10px; /* Bordes redondeados para el thumb */
+}
+
+/* Cambiar el color de fondo de la barra de scroll */
+.trem-team__item .trem-team__item__content::-webkit-scrollbar-track {
+  background-color: #ffffff00;
 }
