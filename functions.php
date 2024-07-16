@@ -69,4 +69,5 @@ require 'taxonomies/dc_locations.php'; // Case Studies
 ///////////////////////////////////////////////////////////////////////
 require 'custom-fields/dc_our_reach_fields.php'; // Our Reach
 require 'custom-fields/dc_case_studies.php'; // Case Stydies
+require 'custom-fields/dc_case_studies_and_our_reach.php'; // Case Stydies and Our Reach
 require 'custom-fields/dc_accordion_popup.php'; // Accordion PopUp

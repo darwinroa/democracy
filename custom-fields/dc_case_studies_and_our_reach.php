@@ -2,43 +2,27 @@
 if (function_exists('acf_add_local_field_group')) :
 
   acf_add_local_field_group(array(
-    'key' => 'group_66907fe8c1089',
-    'title' => 'Case Studies - Links',
+    'key' => 'group_6696a25b8b0ee',
+    'title' => 'Our Reach and Case Studies',
     'fields' => array(
       array(
-        'key' => 'field_66907ff568cde',
-        'label' => 'PDF',
-        'name' => 'pdf_case_studies',
-        'type' => 'file',
+        'key' => 'field_6696a27a881d6',
+        'label' => 'Location',
+        'name' => 'mapa_location',
+        'type' => 'text',
         'instructions' => '',
         'required' => 0,
         'conditional_logic' => 0,
         'wrapper' => array(
-          'width' => '50',
-          'class' => '',
-          'id' => '',
-        ),
-        'return_format' => 'url',
-        'library' => 'all',
-        'min_size' => '',
-        'max_size' => '',
-        'mime_types' => '.pdf',
-      ),
-      array(
-        'key' => 'field_6690806168cdf',
-        'label' => 'More Information Link',
-        'name' => 'more_information_link_case_studies',
-        'type' => 'url',
-        'instructions' => '',
-        'required' => 0,
-        'conditional_logic' => 0,
-        'wrapper' => array(
-          'width' => '50',
+          'width' => '',
           'class' => '',
           'id' => '',
         ),
         'default_value' => '',
         'placeholder' => '',
+        'prepend' => '',
+        'append' => '',
+        'maxlength' => '',
       ),
     ),
     'location' => array(
@@ -47,6 +31,13 @@ if (function_exists('acf_add_local_field_group')) :
           'param' => 'post_type',
           'operator' => '==',
           'value' => 'case_studies',
+        ),
+      ),
+      array(
+        array(
+          'param' => 'post_type',
+          'operator' => '==',
+          'value' => 'our_reach',
         ),
       ),
     ),
