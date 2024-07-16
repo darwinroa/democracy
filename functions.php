@@ -36,6 +36,12 @@ function hello_elementor_child_scripts_styles()
 }
 add_action('wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20);
 
+/**
+ * Add Customs Styles and Scripts
+ */
+wp_enqueue_style('dc-custom-style', get_stylesheet_directory_uri() . '/inc/styles/dc_styles.css', array(), '1.0');
+wp_enqueue_script('dc-custom-script', get_stylesheet_directory_uri() . '/inc/scripts/dc_scripts.js', array('jquery'), null, true);
+
 ///////////////////////////////////////////////////////////////////////
 ////////////////////////////SHORTCODES/////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
