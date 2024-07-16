@@ -198,7 +198,8 @@ function dc_query_case_studies_loop($args)
       $title = get_the_title();
       $description = get_the_content();
       $term = get_the_terms(get_the_ID(), 'locations');
-      $location = esc_html($term[0]->name);
+      $locationField = get_field('mapa_location');
+      $location = empty($locationField) ? esc_html($term[0]->name) : $locationField;
       $img = get_the_post_thumbnail(
         null,
         'medium',
