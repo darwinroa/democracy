@@ -59,6 +59,7 @@ require 'shortcodes/play-video/dc_play_video.php'; // Accordion
 require 'utilities/dc_html_filter.php'; // Filters HTML
 require 'utilities/dc_load_more_button.php'; // Load more button HTML
 require 'utilities/dc_utilities.php'; // Utilities functions
+require 'utilities/dc_video_popup.php'; // Utilities functions
 
 ///////////////////////////////////////////////////////////////////////
 ////////////////////////////Post Types/////////////////////////////////
