@@ -40,20 +40,26 @@
 	font-size: 16px;
 	font-weight: 600;
 	transition: .4s;
+	margin: 0px;
 }
 
 #dc__library-section .filter-buton:hover{
 	opacity: .7;
 }
 
+#dc__library-section .dc__loop-card{
+	height: 100%;
+}
+
 #dc__library-section .dc__card-content{
 	padding: 0px 15px 15px 15px;
     border: 1px solid #F0F0F0;
+	height: 100% !important;
 }
 
 #dc__library-section .dc__card-content .dc__card-title{
 	font-family: 'Aleo', sans-serif;
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: bold;
 	position: relative;
 }
@@ -99,4 +105,5 @@
 
 #dc__library-section .dc__content-button-loadmore{
 	width: 100%;
+	margin-top: 50px;
 }
