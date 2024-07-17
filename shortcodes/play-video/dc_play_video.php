@@ -4,8 +4,8 @@ function button_play_video_function()
 {
   // Script para el video pop up
   wp_enqueue_script('dc-popup-video-script', get_stylesheet_directory_uri() . '/inc/scripts/dc_popup_video.js', array('jquery'), null, true);
-  wp_localize_script('dc-popup-video-script', 'wp_ajax', array(
-    'ajax_url'            => admin_url('admin-ajax.php'),
+  wp_localize_script('dc-popup-video-script', 'popup_wp_ajax', array(
+    'popup_ajax_url'      => admin_url('admin-ajax.php'),
     'nonce'               => wp_create_nonce('nonce'),
   ));
 

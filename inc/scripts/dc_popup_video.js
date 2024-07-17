@@ -25,11 +25,11 @@ jQuery(document).ready(function($){
   function openPopup() {
     const videoId = $(this).data('id');
     $.ajax({
-      url: wp_ajax.ajax_url,
+      url: popup_wp_ajax.popup_ajax_url,
       type: 'post',
       data: {
         action: 'dc_ajax_popup',
-        nonce: wp_ajax.nonce,
+        nonce: popup_wp_ajax.nonce,
         videoId
       },
       success: function(response) {
