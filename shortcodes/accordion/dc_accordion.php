@@ -28,7 +28,7 @@ function dc_accordion_function($atts)
     $isActive = false;
   }
   $html = "
-    <div class='trem-team'>
+    <div class='trem-team type-$typeStep'>
       $protocolStepsHTML
     </div>
   ";

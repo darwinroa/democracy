@@ -52,14 +52,25 @@
   position: relative;
   height: 80vh;
 }
-.trem-team__item:nth-child(3n+1) .trem-team__item__tab{
+/*Estilos para los pasos tipo snl*/
+.type-snl .trem-team__item:nth-child(3n+1) .trem-team__item__tab{
   background-color: #452D9D;
 }
-.trem-team__item:nth-child(3n+2) .trem-team__item__tab{
+.type-snl .trem-team__item:nth-child(3n+2) .trem-team__item__tab{
   background-color: #7774ED;
 }
-.trem-team__item:nth-child(3n+3) .trem-team__item__tab{
+.type-snl .trem-team__item:nth-child(3n+3) .trem-team__item__tab{
   background-color: #3BAFD4;
+}
+/*Estilos para los pasos tipo ssl*/
+.type-ssl .trem-team__item:nth-child(3n+1) .trem-team__item__tab{
+  background-color: #447CE9;
+}
+.type-ssl .trem-team__item:nth-child(3n+2) .trem-team__item__tab{
+  background-color: #44A4E9;
+}
+.type-ssl .trem-team__item:nth-child(3n+3) .trem-team__item__tab{
+  background-color: #7774ED;
 }
 .trem-team__item__fig__caption__name{
 	font-family: "Avenir Next Bold", Sans-serif !important;
