@@ -95,8 +95,13 @@
 	transition: .4s;
 }
 
-#dc__library-section .dc__card-content .dc__card-link:hover{
+#dc__library-section .dc__card-content .dc__card-link:hover {
 	opacity: .7;
+}
+
+#dc__library-section .dc__card-content .dc__card-link:hover,
+#dc__library-section .dc__card-content .dc__card-link:focus {
+	background-color: transparent;
 }
 
 #dc__library-section .dc__card-content .dc__card-link i{
