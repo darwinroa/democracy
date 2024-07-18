@@ -96,7 +96,7 @@ function dc_sidebar_location_list($post_type)
       );
       $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
       $html .= "
-            <li class='dc__sidebar-location dc__hide'>
+            <li class='dc__sidebar-location dc__hide $location->slug'>
               <span class='dc__location-count'>$totalPost</span>
               <h3 data-countryid='$location->term_id' data-country='$location->slug' class='dc__location-title'>$location->name</h3>
             </li>
@@ -200,6 +200,7 @@ function dc_query_case_studies_loop($args)
       $term = get_the_terms(get_the_ID(), 'locations');
       $locationField = get_field('mapa_location');
       $location = empty($locationField) ? esc_html($term[0]->name) : $locationField;
+      $locationClass = parent_continent_by_slug_country($term[0]->slug);
       $img = get_the_post_thumbnail(
         null,
         'medium',
@@ -222,7 +223,7 @@ function dc_query_case_studies_loop($args)
       }
 
       $html .= "
-      <div class='dc__loop-card'>
+      <div class='dc__loop-card $locationClass'>
         <div class='dc__card-content'>
           $img
           <h3 class='dc__card-title'>$title</h3>
@@ -306,6 +307,34 @@ if (!function_exists('dc_options_countries_ajax')) {
     wp_send_json_success($html);
     wp_die();
   }
+}
+
+/**
+ * Retorna el slug del término padre de la taxonomía locations
+ * De esta manera saber a que continente pertenece el slug de un país
+ */
+function parent_continent_by_slug_country($countrySlug)
+{
+  $taxonomy = 'locations';
+
+  // Obtiene el término hijo por su slug.
+  $child_term = get_term_by('slug', $countrySlug, $taxonomy);
+
+  if ($child_term && !is_wp_error($child_term)) {
+    // Obtiene el ID del término padre.
+    $parent_id = $child_term->parent;
+
+    if ($parent_id) {
+      // Obtiene el término padre por su ID.
+      $parent_term = get_term($parent_id, $taxonomy);
+
+      if ($parent_term && !is_wp_error($parent_term)) {
+        // Retorna el término padre.
+        return $parent_term->slug;
+      }
+    }
+  }
+  return '';
 }
 
 /**
