@@ -90,17 +90,25 @@
 
 /*Estilos al scroll*/
 /* Estilos para la barra de scroll */
-.trem-team__item .trem-team__item__content::-webkit-scrollbar {
+.trem-team__item .trem-team__item__content::-webkit-scrollbar,
+.step-popup::-webkit-scrollbar {
   width: 2px; /* Ancho de la barra de scroll */
 }
 
 /* Cambiar el color de la barra */
-.trem-team__item .trem-team__item__content::-webkit-scrollbar-thumb {
+.trem-team__item .trem-team__item__content::-webkit-scrollbar-thumb,
+.step-popup::-webkit-scrollbar-thumb {
   background-color: #8585853b;
   border-radius: 10px; /* Bordes redondeados para el thumb */
 }
 
 /* Cambiar el color de fondo de la barra de scroll */
-.trem-team__item .trem-team__item__content::-webkit-scrollbar-track {
-  background-color: #ffffff00;
+.trem-team__item .trem-team__item__content::-webkit-scrollbar-track,
+.step-popup::-webkit-scrollbar-track {
+background-color: #ffffff00;
+}
+
+.step-popup {
+  height: 80vh;
+  overflow-y: auto;
 }
