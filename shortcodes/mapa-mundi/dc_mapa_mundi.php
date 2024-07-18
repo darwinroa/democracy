@@ -94,10 +94,11 @@ function dc_sidebar_location_list($post_type)
           )
         )
       );
+      $colorItem = get_color($location->slug);
       $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
       $html .= "
-            <li class='dc__sidebar-location dc__hide $location->slug'>
-              <span class='dc__location-count'>$totalPost</span>
+            <li class='dc__sidebar-location dc__hide'>
+              <span class='dc__location-count' style='background-color: $colorItem'>$totalPost</span>
               <h3 data-countryid='$location->term_id' data-country='$location->slug' class='dc__location-title'>$location->name</h3>
             </li>
           ";
@@ -200,7 +201,8 @@ function dc_query_case_studies_loop($args)
       $term = get_the_terms(get_the_ID(), 'locations');
       $locationField = get_field('mapa_location');
       $location = empty($locationField) ? esc_html($term[0]->name) : $locationField;
-      $locationClass = parent_continent_by_slug_country($term[0]->slug);
+      $locationRegion = parent_continent_by_slug_country($term[0]->slug);
+      $colorBorder = get_color($locationRegion);
       $img = get_the_post_thumbnail(
         null,
         'medium',
@@ -223,7 +225,7 @@ function dc_query_case_studies_loop($args)
       }
 
       $html .= "
-      <div class='dc__loop-card $locationClass'>
+      <div class='dc__loop-card' style='border-top-color: $colorBorder'>
         <div class='dc__card-content'>
           $img
           <h3 class='dc__card-title'>$title</h3>
@@ -335,6 +337,29 @@ function parent_continent_by_slug_country($countrySlug)
     }
   }
   return '';
+}
+
+/**
+ * Retorna el color correspondiente a la región
+ */
+function get_color($location)
+{
+  switch ($location) {
+    case 'africa':
+      return '#F9CD32';
+    case 'asia':
+      return '#F76F67';
+    case 'australia':
+      return '#03CCCC';
+    case 'europe':
+      return '#4AC3E9';
+    case 'latin-america':
+      return '#40CF99';
+    case 'north-america':
+      return '#7774ED';
+    default:
+      return '';
+  }
 }
 
 /**
