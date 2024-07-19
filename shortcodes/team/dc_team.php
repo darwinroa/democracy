@@ -12,8 +12,7 @@ if (!function_exists('dc_team_function')) {
 
     $iconPlus = dc_icon_plus();
     $html = "";
-    $html .= "<div id='overlay'></div>";
-    $html .= "<div id='teamPopup'><div id='closePopup'>$iconPlus</div><div id='teamPopupContent'>hola mundo</div></div>";
+    $html .= dc_html_popup_team();
     return $html;
   }
 }
