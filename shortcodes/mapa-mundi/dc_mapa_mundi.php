@@ -96,6 +96,7 @@ function dc_sidebar_location_list($post_type)
       );
       $colorItem = get_color($location->slug);
       $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
+      if ($totalPost === 0) continue; // No imprime las regiones que no contenga ningún post agregado
       $html .= "
             <li class='dc__sidebar-location dc__hide'>
               <span class='dc__location-count' style='background-color: $colorItem'>$totalPost</span>
