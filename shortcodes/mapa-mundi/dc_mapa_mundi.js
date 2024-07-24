@@ -86,7 +86,6 @@ jQuery(document).ready(function($) {
     page++;
     isLoadMore = true;
     var slugCountry = $(this).attr('data-country');
-    console.log('valor de country del boton-->', slugCountry);
     dcCaseStudyAjax(slugCountry, page); // Función que imprime el loop de la consulta ajax al presionar en cargar más
   })
 
@@ -137,6 +136,7 @@ jQuery(document).ready(function($) {
       data: {
         action: 'dc_options_countries_ajax',
         nonce: wp_ajax.nonce,
+        postType: wp_ajax.post_type,
         idCountry
       },
       success: function(response) {

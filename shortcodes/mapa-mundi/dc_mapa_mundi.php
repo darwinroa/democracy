@@ -33,7 +33,7 @@ if (!function_exists('dc_mapa_mundi_function')) {
     $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
     $mapaImg = dc_mapa_mundi_svg($post_type); // Retorna el SVG del mapa mundi
     $sidebarLocationList = dc_sidebar_location_list($post_type); // Retorna el listado de regiones que irá en el sidebar
-    $countryOptions = dc_country_list(); // Retorna el listado de Paises que irán en el select
+    $countryOptions = dc_country_list($post_type); // Retorna el listado de Paises que irán en el select
     $button_ID = 'loadmore-members-countries';
     $buttonLoadMore = dc_html_loadmore_button($button_ID);
     $sidebarTitle = $post_type === 'our_reach' ? 'Global members' : 'Global Case Studies';
@@ -111,13 +111,25 @@ function dc_sidebar_location_list($post_type)
 /**
  * Retorna el listado de Paises que irán en el select
  */
-function dc_country_list($isAjax = false, $parentId = '')
+function dc_country_list($post_type, $isAjax = false, $parentId = '')
 {
   $child_locations = $isAjax ? dc_get_child_locations($parentId) : dc_get_locations(false);
   $html = "<option value='' class='dc__country-option' selected>Select a Country</option>";
   // Imprimir los nombres de las categorías hijas
   if (!empty($child_locations)) {
     foreach ($child_locations as $location) {
+      $args = array(
+        'post_type' => $post_type,
+        'tax_query'     => array(
+          array(
+            'taxonomy'  => 'locations',
+            'field'     => 'slug',
+            'terms'     => $location->slug
+          )
+        )
+      );
+      $totalPost = dc_query_total_case_studies($args); // Retorna el total de posts relacionado a los argumentos enviados
+      if ($totalPost === 0) continue; // No imprime las regiones que no contenga ningún post agregado
       $html .= "<option value='$location->slug' data-countryselect='$location->name' class='dc__country-option'>$location->name</option>";
     }
   }
@@ -302,10 +314,11 @@ if (!function_exists('dc_options_countries_ajax')) {
   {
     check_ajax_referer('load_more_nonce', 'nonce');
     $idCountry = isset($_POST['idCountry']) ? sanitize_text_field($_POST['idCountry']) : false;
+    $post_type = sanitize_text_field($_POST['postType']);
 
     // si idCountry tiene valor, dc_country_list carga los países hijos al parent proveniente de idCountry
     // Si no tiene valor, entonces dc_country_list lista a todos los países
-    $html = $idCountry ? dc_country_list(true, $idCountry) : dc_country_list($idCountry);
+    $html = $idCountry ? dc_country_list($post_type, true, $idCountry) : dc_country_list($post_type, $idCountry);
 
     wp_send_json_success($html);
     wp_die();
