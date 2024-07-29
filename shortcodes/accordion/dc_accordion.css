@@ -40,8 +40,8 @@
 .team__item__text .dc__accordion_step-title {
   font-family: "Roboto", Sans-serif;
   font-style: italic;
-  font-size: 14px;
-  line-height: 20px;
+  font-size: 11px;
+  line-height: 15px;
   font-weight: 400;
   color: white;
 }
@@ -111,4 +111,45 @@ background-color: #ffffff00;
 .step-popup {
   height: 80vh;
   overflow-y: auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .trem-team,
+  .trem-team .trem-team__item__tab {
+    flex-direction: column;
+  }
+  
+  .trem-team .team__item__text {
+    top: 0;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .trem-team__item.active .trem-team__item__content,
+  .trem-team__item .trem-team__item__content {
+    width: 100%;
+  }
+  
+  .trem-team__item .trem-team__item__content {
+    height: 0;
+    transition: .5s ease-in-out;
+  }
+  
+  .trem-team__item.active .trem-team__item__content {
+    height: 100%;
+  }
+
+  .trem-team__item .trem-team__item__tab {
+    height: 60px;
+  }
+  
+  .trem-team__item.active .trem-team__item__tab {
+    height: 100%;
+  }
+
+  .trem-team__item {
+    width: 100%;
+  }
 }

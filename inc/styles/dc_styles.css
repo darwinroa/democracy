@@ -56,3 +56,7 @@ button {
 .no-scroll {
   overflow: hidden;
 }
+
+.elementor-popup-modal.dialog-type-lightbox { /* Pop Up de Elementor */
+  z-index: 1000000; 
+}
