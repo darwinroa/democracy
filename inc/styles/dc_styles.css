@@ -1,13 +1,13 @@
 .contenido-expandible{
-  display: none;
-  overflow: hidden; /* Oculta cualquier contenido que pueda sobresalir */
-  transition: height 0.7s ease; /* Transición suave de altura */
-  height: 0; /* Altura inicial cero */
+  display: none !important;
+  overflow: hidden !important; /* Oculta cualquier contenido que pueda sobresalir */
+  transition: height 0.7s ease !important; /* Transición suave de altura */
+  height: 0 !important; /* Altura inicial cero */
 }
 
 .mostrar {
-  display: block; /* Muestra el contenido cuando se agrega esta clase */
-  height: auto; /* Establece la altura automática para mostrar todo el contenido */
+  display: block !important; /* Muestra el contenido cuando se agrega esta clase */
+  height: auto !important; /* Establece la altura automática para mostrar todo el contenido */
 }
 
 /* Estilos para el pop-up */
