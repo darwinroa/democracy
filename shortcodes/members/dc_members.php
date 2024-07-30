@@ -46,7 +46,9 @@ if (!function_exists('dc_members_function')) {
     $post_per_page = 9;
     $args = array(
       'post_type' => 'members',
-      'posts_per_page' => $post_per_page
+      'posts_per_page' => $post_per_page,
+      'orderby' => 'name',
+      'order' => 'ASC',
     );
     $query_loop = dc_query_members_loop($args);
     $html .= $query_loop[0];
@@ -124,6 +126,8 @@ if (!function_exists('dc_member_ajax_filter')) {
     $post_per_page = 9;
     $args = array(
       'post_type' => 'members',
+      'orderby' => 'name',
+      'order' => 'ASC',
       'posts_per_page' => $post_per_page,
       'tax_query' => $tax_query,
       'paged' => $page
