@@ -1,13 +1,13 @@
 #dc__members-section .dc__content-loop-grid {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 10px;
   padding-top: 40px;
 }
 
 #dc__members-section .dc__content-loop-grid .elementor{
-	width: calc(25% - 4.6px);
+	width: calc(33% - 4.6px);
 }
 
 .dc__content-filter{
@@ -19,6 +19,11 @@
 
 #dc__form-filter-members{
 	display: flex;
+}
+
+#dc__members-section .dc__content-loop-grid img{
+	height: 120px !important;
+    object-fit: contain !important;
 }
 
 #dc__form-filter-members select{
@@ -40,10 +45,15 @@
 	font-size: 16px;
 	font-weight: 600;
 	transition: .4s;
+	margin: 0px;
 }
 
 #dc__form-filter-members .filter-buton:hover{
 	opacity: .7;
+}
+
+#dc__members-section .dc__content-button-loadmore{
+	margin-top: 50px;
 }
 
 .dc__content-loop-title{
@@ -66,11 +76,10 @@
 }
 
 .dc__other-links {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
-
 .dc__other-links a {
-	color: #000;
+  color: #000;
 }
