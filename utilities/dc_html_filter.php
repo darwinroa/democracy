@@ -45,7 +45,8 @@ function dc_filter_options($taxonomy, $order)
 function dc_html_filter_select($cpt_slug, $cpt_name, $terms)
 {
   $html = "<select class='member-select-filter' name='{$cpt_slug}' id='{$cpt_slug}'>
-    <option value='' selected>{$cpt_name}</option>";
+    <option value='' selected disabled>$cpt_name</option>
+    <option value=''>All</option>";
   foreach ($terms as $term) :
     $html .= '<option value="' . $term->term_id . '">' . $term->name . '</option>';
   endforeach;
