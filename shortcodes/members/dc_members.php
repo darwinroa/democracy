@@ -162,3 +162,23 @@ function get_member_name_url_function()
 {
   return get_field('text_link');
 }
+
+/**
+ * Se requeire este shortcode para agregarlo en el template de elementor para que se impriman todos los otros links necesarios
+ */
+add_shortcode('get_member_other_links', 'get_member_other_links_function');
+function get_member_other_links_function()
+{
+  $otherLinks = get_field('other_links');
+  if ($otherLinks) {
+    $html = "<div class='dc__other-links'>";
+    foreach ($otherLinks as $linkWeb) {
+      $url = $linkWeb['link'];
+      $text = $linkWeb['text_link'];
+      $html .= "<a href='$url' class='dc__other-link' target='_blank'>$text</a>";
+    }
+    $html .= "</div>";
+    return $html;
+  }
+  return;
+}

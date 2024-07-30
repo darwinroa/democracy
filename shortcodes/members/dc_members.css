@@ -64,3 +64,13 @@
 	bottom: -20px;
 	left: calc(50% - 60px);
 }
+
+.dc__other-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.dc__other-links a {
+	color: #000;
+}
