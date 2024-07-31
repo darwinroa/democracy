@@ -167,11 +167,17 @@ function dc_get_locations($isParent)
       }
     }
 
+    // Ordenar alfabéticamente por el nombre del término
+    usort($child_terms, function ($a, $b) {
+      return strcmp($a->name, $b->name);
+    });
+
     return $child_terms;
   }
   // Retornar un array vacío si no hay términos padres o si ocurre un error
   return array();
 }
+
 
 function dc_get_child_locations($parentId)
 {
