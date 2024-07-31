@@ -43,7 +43,7 @@ if (!function_exists('dc_members_function')) {
      * Luego estos argumentos son enviados a la función dc_query_members_loop() 
      * Esta función es la encargada de retornar el loop con los argumentos necesarios
      */
-    $post_per_page = 9;
+    $post_per_page = 18;
     $args = array(
       'post_type' => 'members',
       'posts_per_page' => $post_per_page,
@@ -123,7 +123,7 @@ if (!function_exists('dc_member_ajax_filter')) {
         'terms' => intval($field_of_work)
       );
     }
-    $post_per_page = 9;
+    $post_per_page = 18;
     $args = array(
       'post_type' => 'members',
       'orderby' => 'name',
