@@ -9,6 +9,10 @@
 	margin: 70px 0;
 }
 
+.content-toggle {
+	margin-bottom: 50px;
+}
+
 .content-toggle .filter-top	{
 	display: flex;
 	align-items: center;
