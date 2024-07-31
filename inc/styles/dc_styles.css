@@ -60,3 +60,8 @@ button {
 .elementor-popup-modal.dialog-type-lightbox { /* Pop Up de Elementor */
   z-index: 1000000; 
 }
+
+.bdt-ep-accordion-item {
+  z-index: 1;
+  position: relative;
+}
