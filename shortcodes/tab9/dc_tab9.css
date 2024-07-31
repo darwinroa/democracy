@@ -55,7 +55,7 @@
 	content: '';
 	width: 1rem;
 	height: 1rem;
-	background-image: url('http://democracy.local/wp-content/uploads/2024/05/Arrow_down.svg');
+	background-image: url('./../../inc/img/Arrow_down.svg');
 	background-repeat: no-repeat;
 	background-size: contain;
 	display: inline-block;
