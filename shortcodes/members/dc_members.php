@@ -35,7 +35,7 @@ if (!function_exists('dc_members_function')) {
     $form_ID = 'filter-members';
     $html .= dc_html_filter_form($taxonomies, $form_ID);
     $html .= "<div class='dc__content-loop'>";
-    $html .= "<h2 class='dc__content-loop-title'>Organizations</h2>";
+    $html .= "<h2 id='dc__content-loop-title' class='dc__content-loop-title'>Member Type</h2>";
     $html .= "<div class='dc__content-loop-grid'>";
     /**
      * Aquí se optiene el Loop inicial al momento de cargar la web

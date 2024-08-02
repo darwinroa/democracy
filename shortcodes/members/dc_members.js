@@ -6,6 +6,10 @@ jQuery(document).ready(function($) {
   $('#dc__button-filter-members').on('click', function() {
     page = 1; // Inicializando el paginado cada vez que se desea filtrar
     isLoadMore = false;
+    const memberTypeText = $('#type_member').find('option:selected').text();
+    memberTypeText === 'All' ? 
+      $('#dc__content-loop-title').text('Member Type') :
+      $('#dc__content-loop-title').text(memberTypeText);
     dcMembersAjax(page);
   })
  
