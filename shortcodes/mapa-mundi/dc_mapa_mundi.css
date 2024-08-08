@@ -9,7 +9,7 @@
 }
 
 #dc__case_studies-section .dc__case_studies-header {
-  margin-bottom: -15rem;
+  margin-bottom: -12rem;
   z-index: 1;
   position: relative;
 }
@@ -25,12 +25,12 @@
 }
 
 #dc__case_studies-section .dc__header-country {
-  font-size: 116px;
-  line-height: 120px;
+  font-size: 80px;
+  line-height: 90px;
   font-weight: 700;
   text-align: center;
   color: var(--e-global-color-53a42bb);
-  min-height: 240px;
+  min-height: 180px;
   text-wrap: balance;
   margin: 0;
 }
