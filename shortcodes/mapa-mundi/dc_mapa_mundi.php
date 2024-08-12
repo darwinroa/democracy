@@ -37,12 +37,13 @@ if (!function_exists('dc_mapa_mundi_function')) {
     $button_ID = 'loadmore-members-countries';
     $buttonLoadMore = dc_html_loadmore_button($button_ID);
     $sidebarTitle = $post_type === 'our_reach' ? 'Global members' : 'Global Case Studies';
+    $topText = $post_type === 'our_reach' ? 'To view our members across organizations and individuals' : 'To view the case studies';
     ob_start();
     $html = '';
     $html .= "
       <div id='dc__case_studies-section'>
         <div class='dc__case_studies-header'>
-          <h5 id='dc__header-total-members' class='dc__header-total-members'>To view our members across organizations and individuals</h5>
+          <h5 id='dc__header-total-members' class='dc__header-total-members $post_type'>$topText</h5>
           <h3 id='dc__header-country' class='dc__header-country'>Select a country</h3>
         </div>
         $mapaImg

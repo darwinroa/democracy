@@ -31,7 +31,8 @@ jQuery(document).ready(function($) {
   $('#mapa-mundi').on('mouseenter', 'g', function() {
     var countryName = $(this).data('country');
     $('#dc__header-country').text(countryName);
-    $('#dc__header-total-members').text('Our members in');
+    $('#dc__header-total-members.our_reach').text('Our members in');
+    $('#dc__header-total-members.case_studies').text('Case study in');
   });
 
   /**
@@ -54,7 +55,6 @@ jQuery(document).ready(function($) {
     loadMoreButon.show();
     loadMoreButon.attr('data-country', slugCountry); // Actualiza el data-country del botón de cargar más
     $('#dc__header-country').text(nameCountry);
-    $('#dc__header-total-members').text('Our members in');
     $('g').removeClass('active');
     $('#mapa-mundi #' + slugCountry).addClass('active');
     $('.dc__sidebar-location').removeClass('dc__hide');

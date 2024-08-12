@@ -71,7 +71,7 @@ button {
   position: relative;
 }
 
-.dc__tabs_guide_01 .bdt-ep-accordion-icon::before {
+.bdt-ep-accordion-icon::before {
   content: '';
   display: block;
   position: absolute;
@@ -80,6 +80,7 @@ button {
   background-color: transparent;
 }
 
-.bdt-ep-accordion-item.bdt-open:nth-child(8) .bdt-ep-accordion-item.bdt-open .bdt-ep-accordion-icon {
+.bdt-ep-accordion-item.bdt-open:nth-child(8) .bdt-ep-accordion-item.bdt-open .bdt-ep-accordion-icon,
+.bdt-ep-accordion-item.bdt-open:nth-child(2) .bdt-ep-accordion-item.bdt-open .bdt-ep-accordion-icon {
   transform: rotate(180deg);
 }
