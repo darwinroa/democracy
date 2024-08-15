@@ -59,6 +59,11 @@
 	background-repeat: no-repeat;
 	background-size: contain;
 	display: inline-block;
+	transition: all .2s ease-in;
+}
+
+.filter-top .filter-select .select-selected.active::after {
+	transform: rotate(180deg);
 }
 
 .filter-top .filter-select .select-items {

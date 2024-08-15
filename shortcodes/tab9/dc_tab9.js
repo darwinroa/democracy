@@ -1,5 +1,6 @@
 jQuery(document).ready(function($) {
   $(".select-selected").click(function() {
+      $(this).toggleClass('active');
       $(this).next(".select-items").toggle();
   });
 
