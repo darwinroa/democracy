@@ -45,10 +45,17 @@ if (!function_exists('dc_members_function')) {
      */
     $post_per_page = 18;
     $args = array(
-      'post_type' => 'members',
-      'posts_per_page' => $post_per_page,
-      'orderby' => 'name',
-      'order' => 'ASC',
+      'post_type'       => 'members',
+      'posts_per_page'  => $post_per_page,
+      'orderby'         => 'name',
+      'order'           => 'ASC',
+      'tax_query'       => array(
+        array(
+          'taxonomy' => 'type_member',
+          'field'    => 'slug',
+          'terms'    => 'organizations'
+        )
+      )
     );
     $query_loop = dc_query_members_loop($args);
     $html .= $query_loop[0];

@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
     isLoadMore = false;
     const memberTypeText = $('#type_member').find('option:selected').text();
     memberTypeText === 'All' ? 
-      $('#dc__content-loop-title').text('Organizations') :
+      $('#dc__content-loop-title').text('All Members') :
       $('#dc__content-loop-title').text(memberTypeText);
     dcMembersAjax(page);
   })
