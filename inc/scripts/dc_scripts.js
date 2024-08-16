@@ -34,3 +34,34 @@ jQuery(document).ready(function($) {
 
   viewMoreExpand();
 });
+
+
+// Función para aplicar estilos a cada elemento
+function applyStyles() {
+  // Selecciona todos los elementos con la clase 'bdt-ep-circle-info-sub-circle'
+  const elements = document.querySelectorAll('.bdt-ep-circle-info-sub-circle');
+  
+  // Define los estilos que se deben aplicar a cada elemento
+  const styles = [
+      'transform: translate3d(0px, -200px, 0px);',
+      'transform: translate3d(-200px, 0px, 0px);',
+      'transform: translate3d(0px, 200px, 0px);',
+      'transform: translate3d(200px, 0px, 0px);'
+  ];
+  
+  // Aplica los estilos a cada elemento
+  elements.forEach((element, index) => {
+      if (index < styles.length) {
+          element.style.cssText = styles[index];
+      }
+  });
+}
+
+// Añadir el evento click a los elementos con la clase 'bdt-ep-accordion-item'
+document.querySelectorAll('.bdt-ep-accordion-item').forEach(item => {
+  item.addEventListener('click', () => {
+      // Ejecutar la función para aplicar los estilos cuando se hace clic en el elemento
+      applyStyles();
+  });
+});
+
