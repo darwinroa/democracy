@@ -259,7 +259,7 @@ function dc_query_case_studies_loop($args)
     endwhile;
     wp_reset_postdata(); // Resetea los datos del post
     $html .= ob_get_clean();
-  else : $html .= "<div class='dc__without-results'>No se encontraron resultados</div>";
+  else : $html .= "<div class='dc__without-results'>No more results</div>";
   endif;
   return $html;
 }

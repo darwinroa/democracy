@@ -85,7 +85,7 @@ function dc_query_members_loop($args)
     endwhile;
     wp_reset_postdata(); // Resetea los datos del post
     $html .= ob_get_clean();
-  else : $html .= "<div class='dc__without-results'>No se encontraron resultados</div>";
+  else : $html .= "<div class='dc__without-results'>No more results</div>";
   endif;
   return array($html, $total_post);
 }
