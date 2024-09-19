@@ -112,7 +112,7 @@ jQuery(document).ready(function($) {
       },
       success: function(response) {
         if (response.success) {
-          $('#dc__case_studies-section .dc__button-loadmore').show();
+          if(response.data != "<div class='dc__without-results'>No more results</div>") $('#dc__case_studies-section .dc__button-loadmore').show();
           $('.dc-loader-ajax').remove();
           if(isLoadMore) {
             $('#dc__case_studies-section .dc__content-loop-grid').append(response.data);
